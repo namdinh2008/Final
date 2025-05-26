@@ -1,10 +1,6 @@
-"use client"
-
-import { Bookmark } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, Badge, Button, Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { Bookmark } from "lucide-react";
 
 export default function JobCard({ job, onSave, isSaved }) {
   const experienceLevelMap = {
@@ -27,70 +23,82 @@ export default function JobCard({ job, onSave, isSaved }) {
   }
 
   return (
-    <Card className="overflow-hidden">
-      <CardContent className="p-0">
-        <div className="p-6">
-          <div className="flex items-start justify-between">
-            <div className="flex items-start space-x-4">
-              <div className="h-12 w-12 overflow-hidden rounded-md bg-gray-100">
-                <img
-                  src={job.companyLogo || "/placeholder.svg?height=48&width=48"}
-                  alt={job.company}
-                  width={48}
-                  height={48}
-                  className="h-full w-full object-contain"
-                />
-              </div>
+    <Card className="shadow-sm mb-4 border-0 p-0">
+      <Card.Body>
+        <Row className="align-items-start">
+          {/* Logo & Company */}
+          <Col xs="auto">
+            <div className="rounded bg-light d-flex align-items-center justify-content-center" style={{ width: 60, height: 60 }}>
+              <img
+                src={job.companyLogo || "/placeholder.svg?height=48&width=48"}
+                alt={job.company}
+                className="img-fluid"
+                style={{ maxHeight: 48, objectFit: "contain" }}
+              />
+            </div>
+          </Col>
+          <Col>
+            <div className="d-flex justify-content-between">
               <div>
-                <h3 className="font-semibold text-lg">
-                  <Link to={`/jobs/${job.id}`} className="hover:underline">
+                <h5 className="mb-1 fw-semibold">
+                  <Link to={`/jobs/${job.id}`} className="text-decoration-none text-dark">
                     {job.title}
                   </Link>
-                </h3>
-                <p className="text-sm text-muted-foreground">{job.company}</p>
+                </h5>
+                <div className="text-muted small">{job.company}</div>
               </div>
+              <Button
+                variant="light"
+                size="sm"
+                onClick={() => onSave(job.id)}
+                title={isSaved ? "Remove from saved jobs" : "Save job"}
+              >
+                <Bookmark
+                  size={18}
+                  className={isSaved ? "text-primary" : "text-muted"}
+                  fill={isSaved ? "currentColor" : "none"}
+                />
+              </Button>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => onSave(job.id)}
-              aria-label={isSaved ? "Remove from saved jobs" : "Save job"}
-            >
-              <Bookmark className={`h-5 w-5 ${isSaved ? "fill-primary" : ""}`} />
-            </Button>
-          </div>
 
-          <div className="mt-4 space-y-2">
-            <div className="flex items-center text-sm">
-              <span className="text-muted-foreground">ID:</span>
-              <span className="ml-2">{job.id}</span>
-            </div>
-            <div className="flex items-center text-sm">
-              <span className="text-muted-foreground">Location:</span>
-              <span className="ml-2">{job.location}</span>
-            </div>
-            {job.salary && (
-              <div className="flex items-center text-sm">
-                <span className="text-muted-foreground">Salary:</span>
-                <span className="ml-2">{job.salary}</span>
+            {/* Job Info */}
+            <div className="mt-3">
+              <div className="text-muted small mb-1">
+                <strong>ID:</strong> {job.id}
               </div>
-            )}
-            <div className="flex flex-wrap gap-2 mt-3">
-              <Badge variant="outline">{experienceLevelMap[job.experienceLevel]}</Badge>
-              <Badge variant="outline">{jobTypeMap[job.jobType]}</Badge>
-              <Badge variant="outline">{locationTypeMap[job.locationType]}</Badge>
+              <div className="text-muted small mb-1">
+                <strong>Location:</strong> {job.location}
+              </div>
+              {job.salary && (
+                <div className="text-muted small mb-1">
+                  <strong>Salary:</strong> {job.salary}
+                </div>
+              )}
             </div>
-          </div>
-        </div>
-      </CardContent>
-      <CardFooter className="border-t bg-muted/50 p-4">
-        <div className="flex w-full items-center justify-between">
-          <p className="text-xs text-muted-foreground">Posted: {new Date(job.postedDate).toLocaleDateString()}</p>
-          <Link to={`/jobs/${job.id}`}>
-            <Button size="sm">Apply Now</Button>
-          </Link>
-        </div>
-      </CardFooter>
+
+            {/* Badges */}
+            <div className="mt-2 d-flex flex-wrap gap-2">
+              <Badge bg="secondary" className="fw-normal">
+                {experienceLevelMap[job.experienceLevel]}
+              </Badge>
+              <Badge bg="info" className="fw-normal text-white">
+                {jobTypeMap[job.jobType]}
+              </Badge>
+              <Badge bg="success" className="fw-normal border">
+                {locationTypeMap[job.locationType]}
+              </Badge>
+            </div>
+          </Col>
+        </Row>
+      </Card.Body>
+      <Card.Footer className="bg-light text-muted d-flex justify-content-between align-items-center small">
+        <span>Posted: {new Date(job.postedDate).toLocaleDateString()}</span>
+        <Link to={`/jobs/${job.id}`}>
+          <Button size="sm" variant="primary">
+            Apply Now
+          </Button>
+        </Link>
+      </Card.Footer>
     </Card>
   )
 }

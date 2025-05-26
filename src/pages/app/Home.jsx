@@ -14,8 +14,7 @@ import {
 } from "@/lib/data"
 import JobCard from "@/components/job-card"
 import SearchBar from "@/components/search-bar"
-import { Button } from "react-bootstrap"
-import { Form, Row, Col } from "react-bootstrap"
+import { Button, Form, Row, Col, Container } from "react-bootstrap"
 
 export default function Home() {
   const navigate = useNavigate()
@@ -97,38 +96,42 @@ export default function Home() {
   }
 
   return (
-    <div className="container py-4">
-      <div className="mb-4">
-        <h1 className="h3">Find Your Dream Job</h1>
-        <p className="text-muted">
+    <Container className="py-5">
+      <div className="bg-light p-5 rounded mb-4 text-center shadow-sm">
+        <h1 className="display-5 fw-bold">Find Your Dream Job</h1>
+        <p className="text-muted fs-5">
           Browse through thousands of job opportunities tailored to your skills and preferences.
         </p>
+        <div className="mx-auto" style={{ maxWidth: "600px" }}>
+          <SearchBar onSearch={handleSearch} initialQuery={searchQuery} />
+        </div>
       </div>
 
-      <SearchBar onSearch={handleSearch} initialQuery={searchQuery} />
-
-      <Row className="my-4">
-        <Col>
-          <Form.Select value={sortBy} onChange={(e) => handleSortChange(e.target.value)}>
+      <Row className="align-items-center mb-4">
+        <Col md={6} className="mb-2 mb-md-0">
+          <Form.Select value={sortBy} onChange={(e) => handleSortChange(e.target.value)} className="shadow-sm">
             <option value="relevance">Sort by Relevance</option>
             <option value="date">Sort by Date</option>
             <option value="salary">Sort by Salary</option>
           </Form.Select>
         </Col>
-        <Col>
+        <Col md={6}>
           <Form.Control
             type="text"
             placeholder="Search by location..."
             value={filters.location || ""}
             onChange={handleLocationInput}
+            className="shadow-sm"
           />
         </Col>
       </Row>
 
       <Row>
         {paginatedJobs.map((job) => (
-          <Col key={job.id} md={4} className="mb-4">
-            <JobCard job={job} onSave={toggleSaveJob} isSaved={savedJobs.includes(job.id)} />
+          <Col key={job.id} md={6} lg={4} className="mb-4">
+            <div className="shadow-sm rounded">
+              <JobCard job={job} onSave={toggleSaveJob} isSaved={savedJobs.includes(job.id)} />
+            </div>
           </Col>
         ))}
       </Row>
@@ -137,6 +140,7 @@ export default function Home() {
         <div className="d-flex justify-content-center mt-4">
           <Button
             variant="outline-primary"
+            className="me-2"
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
           >
@@ -147,6 +151,7 @@ export default function Home() {
               key={i}
               variant={currentPage === i + 1 ? "primary" : "outline-primary"}
               onClick={() => setCurrentPage(i + 1)}
+              className="me-2"
             >
               {i + 1}
             </Button>
@@ -160,6 +165,6 @@ export default function Home() {
           </Button>
         </div>
       )}
-    </div>
+    </Container>
   )
 }

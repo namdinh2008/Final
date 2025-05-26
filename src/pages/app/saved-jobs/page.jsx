@@ -1,19 +1,17 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Bookmark } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import JobCard from "@/components/job-card"
 import { mockJobs } from "@/lib/data"
 
 export default function SavedJobsPage() {
   const navigate = useNavigate()
   const [savedJobs, setSavedJobs] = useState([])
-  const [savedJobsData, setSavedJobsData] = useState(mockJobs.filter((job) => savedJobs.includes(job.id)))
+  const [savedJobsData, setSavedJobsData] = useState(
+    mockJobs.filter((job) => savedJobs.includes(job.id))
+  )
 
   useEffect(() => {
-
     const savedJobsFromStorage = localStorage.getItem("savedJobs")
     if (savedJobsFromStorage) {
       const parsedSavedJobs = JSON.parse(savedJobsFromStorage)
@@ -30,30 +28,38 @@ export default function SavedJobsPage() {
   }
 
   return (
-    <div className="container py-8">
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Saved Jobs</h1>
-          <p className="text-muted-foreground">View and manage the jobs you've saved for later.</p>
-        </div>
-
-        {savedJobsData.length > 0 ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {savedJobsData.map((job) => (
-              <JobCard key={job.id} job={job} onSave={toggleSaveJob} isSaved={true} />
-            ))}
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center py-12 text-center">
-            <Bookmark className="h-16 w-16 text-muted-foreground mb-4" />
-            <h3 className="text-lg font-medium">No saved jobs yet</h3>
-            <p className="text-muted-foreground mt-1 mb-6">
-              When you find a job you like, click the bookmark icon to save it for later.
-            </p>
-            <Button onClick={() => navigate("/")}>Browse Jobs</Button>
-          </div>
-        )}
+    <div className="container py-5">
+      <div className="mb-5 text-center">
+        <h1 className="display-4 fw-bold">Saved Jobs</h1>
+        <p className="text-secondary fs-5">
+          View and manage the jobs you've saved for later.
+        </p>
       </div>
+
+      {savedJobsData.length > 0 ? (
+        <div className="row g-4">
+          {savedJobsData.map((job) => (
+            <div key={job.id} className="col-12 col-md-6 col-lg-4">
+              <JobCard job={job} onSave={toggleSaveJob} isSaved={true} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="d-flex flex-column align-items-center justify-content-center py-5 text-center text-muted">
+          <Bookmark size={64} className="mb-3" />
+          <h3 className="mb-2">No saved jobs yet</h3>
+          <p className="mb-4 fs-5">
+            When you find a job you like, click the bookmark icon to save it for later.
+          </p>
+          <button
+            type="button"
+            className="btn btn-primary btn-lg"
+            onClick={() => navigate("/")}
+          >
+            Browse Jobs
+          </button>
+        </div>
+      )}
     </div>
   )
 }
