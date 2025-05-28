@@ -61,14 +61,14 @@ export default function JobDetailPage() {
       <div className="row g-4">
         {/* Job Detail Card */}
         <div className="col-lg-8">
-          <div className="card shadow-sm">
-            <div className="card-body">
+          <div className="card shadow-sm p-0">
+            <div className="card-body p-4">
               <div className="d-flex justify-content-between align-items-start mb-3">
                 <div className="d-flex gap-3">
                   <img
                     src={job.companyLogo || "/placeholder.svg"}
                     alt={job.company}
-                    className="rounded bg-light p-2"
+                    className="rounded bg-light"
                     width="64"
                     height="64"
                   />
@@ -91,7 +91,7 @@ export default function JobDetailPage() {
                 <div><strong>Work Setup:</strong> {job.locationType}</div>
               </div>
 
-              <hr />
+              <hr/>
 
               <h5 className="mt-4">Job Description</h5>
               <p className="text-muted">{job.description}</p>
@@ -104,7 +104,7 @@ export default function JobDetailPage() {
               <h5 className="mt-4">Skills</h5>
               <div className="d-flex flex-wrap gap-2">
                 {job.skills.map((s, i) => (
-                  <span key={i} className="badge bg-secondary">{s}</span>
+                  <span key={i} className="badge bg-dark">{s}</span>
                 ))}
               </div>
 
@@ -118,24 +118,40 @@ export default function JobDetailPage() {
 
         {/* Sidebar */}
         <div className="col-lg-4">
-          <div className="card mb-4 shadow-sm">
-            <div className="card-body">
-              <h5 className="card-title">About {job.company}</h5>
+          {/* About TechCorp Section */}
+          <div className="card mb-4 shadow-sm border-0 p-0">
+            <div className="card-body p-4">
+              <h5 className="card-title mb-3">About {job.company}</h5>
               <p className="text-muted">{job.companyDescription}</p>
-              <button className="btn btn-primary w-100" onClick={() => setIsApplyModalOpen(true)}>Apply Now</button>
+              <button className="btn btn-primary w-100 mt-3" onClick={() => setIsApplyModalOpen(true)}>
+                Apply Now
+              </button>
             </div>
           </div>
 
-          <div className="card shadow-sm">
-            <div className="card-body">
-              <h6 className="mb-3">Job Details</h6>
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item"><strong>ID:</strong> {job.id}</li>
-                <li className="list-group-item"><strong>Experience:</strong> {job.experienceLevel}</li>
-                <li className="list-group-item"><strong>Type:</strong> {job.jobType}</li>
-                <li className="list-group-item"><strong>Setup:</strong> {job.locationType}</li>
-                <li className="list-group-item"><strong>Posted:</strong> {new Date(job.postedDate).toLocaleDateString()}</li>
-                <li className="list-group-item"><strong>Deadline:</strong> {new Date(job.deadline).toLocaleDateString()}</li>
+          {/* Job Details Section */}
+          <div className="card shadow-sm border-0 p-0">
+            <div className="card-body p-4">
+              <h6 className="mb-4 text-uppercase text-muted">Job Details</h6>
+              <ul className="list-unstyled">
+                <li className="mb-2">
+                  <strong>ID:</strong> <span className="text-muted">{job.id}</span>
+                </li>
+                <li className="mb-2">
+                  <strong>Experience:</strong> <span className="text-muted">{job.experienceLevel}</span>
+                </li>
+                <li className="mb-2">
+                  <strong>Type:</strong> <span className="text-muted">{job.jobType}</span>
+                </li>
+                <li className="mb-2">
+                  <strong>Setup:</strong> <span className="text-muted">{job.locationType}</span>
+                </li>
+                <li className="mb-2">
+                  <strong>Posted:</strong> <span className="text-muted">{new Date(job.postedDate).toLocaleDateString()}</span>
+                </li>
+                <li className="mb-2">
+                  <strong>Deadline:</strong> <span className="text-muted">{new Date(job.deadline).toLocaleDateString()}</span>
+                </li>
               </ul>
             </div>
           </div>
