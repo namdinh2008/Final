@@ -13,16 +13,12 @@ export default function RootLayout({
   children
 }) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <body suppressHydrationWarning={true}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="d-flex flex-column min-vh-100">
-            <Header />
-            <main className="flex-grow-1">{children}</main>
-            <Footer />
-          </div>
-        </ThemeProvider>
-      </body>
-    </html>
-  )
+    <div className="d-flex flex-column min-vh-100">
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <Header />
+        <main className="flex-grow-1">{children}</main>
+        <Footer />
+      </ThemeProvider>
+    </div>
+  );
 }

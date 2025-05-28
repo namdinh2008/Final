@@ -64,9 +64,6 @@ export default function JobCard({ job, onSave, isSaved }) {
             {/* Job Info */}
             <div className="mt-3">
               <div className="text-muted small mb-1">
-                <strong>ID:</strong> {job.id}
-              </div>
-              <div className="text-muted small mb-1">
                 <strong>Location:</strong> {job.location}
               </div>
               {job.salary && (
