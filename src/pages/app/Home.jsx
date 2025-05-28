@@ -1,7 +1,9 @@
 "use client"
 
+import React from "react"
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
+import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs"
 import {
   mockJobs,
   jobCategories,
@@ -14,14 +16,19 @@ import {
 } from "@/lib/data"
 import JobCard from "@/components/job-card"
 import SearchBar from "@/components/search-bar"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/label"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button, Form, Row, Col, Container } from "react-bootstrap"
+import { Dropdown, ButtonGroup } from 'react-bootstrap';
 
 export default function Home() {
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate()
 
   const [jobs, setJobs] = useState(mockJobs)
   const [savedJobs, setSavedJobs] = useState([])
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState(() => searchParams.get("q") || "");
   const [filters, setFilters] = useState({})
   const [sortBy, setSortBy] = useState("relevance")
   const [currentPage, setCurrentPage] = useState(1)
@@ -95,6 +102,36 @@ export default function Home() {
     setFilters((prev) => ({ ...prev, location: e.target.value || undefined }))
   }
 
+  const renderDropdown = (label, key, options) => (
+  <div className="dropdown d-inline-block">
+    <button
+      className="btn btn-outline-secondary dropdown-toggle min-w-160 text-start"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      {label}
+    </button>
+    <ul className="dropdown-menu p-3 shadow-sm border rounded" style={{ minWidth: '240px' }}>
+      {options.map((opt) => (
+        <li key={opt.id} className="form-check mb-2">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            value={opt.id}
+            id={`${key}-${opt.id}`}
+            checked={Array.isArray(filters[key]) && filters[key].includes(opt.id)}
+            onChange={() => handleMultiSelect(key, opt.id)}
+          />
+          <label className="form-check-label ms-2" htmlFor={`${key}-${opt.id}`}>
+            {opt.name}
+          </label>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
   return (
     <Container className="py-5">
       <div className="bg-body-secondary p-5 rounded mb-4 text-center shadow-sm">
@@ -125,6 +162,27 @@ export default function Home() {
           />
         </Col>
       </Row>
+
+      <div className="d-flex flex-wrap align-items-center gap-3 mb-4">
+            {/* Filter Dropdowns */}
+            {renderDropdown("Job Category", "category", jobCategories)}
+            {renderDropdown("Experience Level", "experienceLevel", experienceLevels)}
+            {renderDropdown("Job Type", "jobType", jobTypes)}
+            {renderDropdown("Work Type", "locationType", locationTypes)}
+            {/* Clear Button */}
+            <button
+    className="btn btn-outline-secondary ms-2"
+    onClick={() => setFilters({})}
+  >
+    Clear
+  </button>
+          </div>
+
+          <Tabs
+            defaultValue="all"
+            value="all"
+            className="w-full"
+          ></Tabs>
 
       <Row>
         {paginatedJobs.map((job) => (
