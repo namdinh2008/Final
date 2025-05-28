@@ -28,11 +28,11 @@ export default function JobCard({ job, onSave, isSaved }) {
         <Row className="align-items-start">
           {/* Logo & Company */}
           <Col xs="auto">
-            <div className="rounded bg-light d-flex align-items-center justify-content-center" style={{ width: 60, height: 60 }}>
+            <div className="d-flex align-items-center justify-content-center" style={{ width: 60, height: 60 }}>
               <img
                 src={job.companyLogo || "/placeholder.svg?height=48&width=48"}
                 alt={job.company}
-                className="img-fluid"
+                className="rounded bg-light"
                 style={{ maxHeight: 48, objectFit: "contain" }}
               />
             </div>
@@ -88,7 +88,7 @@ export default function JobCard({ job, onSave, isSaved }) {
           </Col>
         </Row>
       </Card.Body>
-      <Card.Footer className="bg-light text-muted d-flex justify-content-between align-items-center small">
+      <Card.Footer className="bg-body-secondary text-muted d-flex justify-content-between align-items-center small">
         <span>Posted: {new Date(job.postedDate).toLocaleDateString()}</span>
         <Link to={`/jobs/${job.id}`}>
           <Button size="sm" variant="primary">

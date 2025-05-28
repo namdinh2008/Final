@@ -2,6 +2,7 @@
 
 import { Navbar, Nav, Button, Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { Briefcase } from "lucide-react"
 
 export default function Header() {
   return (
@@ -9,8 +10,8 @@ export default function Header() {
       <Container>
         {/* Logo */}
         <Navbar.Brand as={Link} to="/" className="fw-bold fs-4 text-primary d-flex align-items-center gap-2">
-          <i className="bi bi-briefcase-fill"></i> {/* Bootstrap icon for visual enhancement */}
-          JobHive
+          <Briefcase className="h-6 w-6 text-primary" />
+          <span>JobHive</span>
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="main-navbar" />

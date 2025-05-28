@@ -97,7 +97,7 @@ export default function Home() {
 
   return (
     <Container className="py-5">
-      <div className="bg-light p-5 rounded mb-4 text-center shadow-sm">
+      <div className="bg-body-secondary p-5 rounded mb-4 text-center shadow-sm">
         <h1 className="display-5 fw-bold">Find Your Dream Job</h1>
         <p className="text-muted fs-5">
           Browse through thousands of job opportunities tailored to your skills and preferences.

@@ -474,7 +474,7 @@ export const mockJobs = [
   },
   {
     id: "job-016",
-    title: "Clinical Research Coordinator",
+    title: "Research Coordinator",
     company: "HealthFirst Hospital",
     location: "Boston, MA",
     salary: "$80,000 - $95,000",

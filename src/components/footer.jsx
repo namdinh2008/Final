@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { Briefcase } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -9,7 +10,8 @@ export default function Footer() {
           {/* Branding */}
           <Col md={3}>
             <h4 className="fw-bold text-primary d-flex align-items-center gap-2">
-              <i className="bi bi-briefcase-fill"></i> JobHive
+              <Briefcase className="h-6 w-6 text-primary" />
+              <span>JobHive</span>
             </h4>
             <p className="text-muted small mb-0">
               Helping you find your dream job with top companies and smart tools.

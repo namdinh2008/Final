@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getJobById } from "@/lib/data";
+import { Bookmark } from "lucide-react";
 
 export default function JobDetailPage() {
   const { id } = useParams();
@@ -54,9 +55,7 @@ export default function JobDetailPage() {
 
   return (
     <div className="container py-5">
-      <button className="btn btn-outline-secondary mb-4" onClick={() => router("/")}>
-        &larr; Back to Jobs
-      </button>
+      <button className="btn btn-primary mb-4" onClick={() => router("/")}><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> Back to Jobs</button>
 
       <div className="row g-4">
         {/* Job Detail Card */}
@@ -77,8 +76,8 @@ export default function JobDetailPage() {
                     <h5 className="text-muted">{job.company}</h5>
                   </div>
                 </div>
-                <button className={`btn btn-sm ${savedJobs.includes(job.id) ? 'btn-success' : 'btn-outline-primary'}`} onClick={toggleSaveJob}>
-                  {savedJobs.includes(job.id) ? 'Saved' : 'Save Job'}
+                <button className={`btn btn-sm border-0 ${savedJobs.includes(job.id)}`} onClick={toggleSaveJob}>
+                  {savedJobs.includes(job.id) ? <Bookmark className="text-primary" fill="currentColor"/> :  <Bookmark className="text-muted" fill="none"/>}
                 </button>
               </div>
 
@@ -132,25 +131,31 @@ export default function JobDetailPage() {
           {/* Job Details Section */}
           <div className="card shadow-sm border-0 p-0">
             <div className="card-body p-4">
-              <h6 className="mb-4 text-uppercase text-muted">Job Details</h6>
+              <h6 className="mb-4 text-uppercase fw-bold">Job Details</h6>
               <ul className="list-unstyled">
-                <li className="mb-2">
-                  <strong>ID:</strong> <span className="text-muted">{job.id}</span>
+                <li className="mb-2 d-flex justify-content-between align-items-center">
+                  <div className="text-muted fw-medium">Job ID</div>
+                  <div className="fw-medium text-capitalize">{job.id}</div>
                 </li>
-                <li className="mb-2">
-                  <strong>Experience:</strong> <span className="text-muted">{job.experienceLevel}</span>
+                <li className="mb-2 d-flex justify-content-between align-items-center">
+                  <div className="text-muted fw-medium">Experience</div>
+                  <div className="fw-medium text-capitalize">{job.experienceLevel} Level</div>
                 </li>
-                <li className="mb-2">
-                  <strong>Type:</strong> <span className="text-muted">{job.jobType}</span>
+                <li className="mb-2 d-flex justify-content-between align-items-center">
+                  <div className="text-muted fw-medium">Job Type</div>
+                  <div className="fw-medium text-capitalize">{job.jobType}</div>
                 </li>
-                <li className="mb-2">
-                  <strong>Setup:</strong> <span className="text-muted">{job.locationType}</span>
+                <li className="mb-2 d-flex justify-content-between align-items-center">
+                  <div className="text-muted fw-medium">Location Type</div>
+                  <div className="fw-medium text-capitalize">{job.locationType}</div>
                 </li>
-                <li className="mb-2">
-                  <strong>Posted:</strong> <span className="text-muted">{new Date(job.postedDate).toLocaleDateString()}</span>
+                <li className="mb-2 d-flex justify-content-between align-items-center">
+                  <div className="text-muted fw-medium">Posted Date</div>
+                  <div className="fw-medium">{new Date(job.postedDate).toLocaleDateString()}</div>
                 </li>
-                <li className="mb-2">
-                  <strong>Deadline:</strong> <span className="text-muted">{new Date(job.deadline).toLocaleDateString()}</span>
+                <li className="mb-2 d-flex justify-content-between align-items-center">
+                  <div className="text-muted fw-medium">Deadline</div>
+                  <div className="fw-medium">{new Date(job.deadline).toLocaleDateString()}</div>
                 </li>
               </ul>
             </div>
