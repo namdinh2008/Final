@@ -28,12 +28,12 @@ export default function JobCard({ job, onSave, isSaved }) {
         <Row className="align-items-start">
           {/* Logo & Company */}
           <Col xs="auto">
-            <div className="d-flex align-items-center justify-content-center" style={{ width: 60, height: 60 }}>
+            <div className="d-flex align-items-center justify-content-center" style={{ width: 32, height: 32 }}>
               <img
                 src={job.companyLogo || "/placeholder.svg?height=48&width=48"}
                 alt={job.company}
-                className="rounded bg-light"
-                style={{ maxHeight: 48, objectFit: "contain" }}
+                className="w-8 h-8 rounded-md object-contain bg-gray-50 border"
+                style={{ maxHeight: 32, maxWidth: 32 }}
               />
             </div>
           </Col>
@@ -68,7 +68,12 @@ export default function JobCard({ job, onSave, isSaved }) {
               </div>
               {job.salary && (
                 <div className="text-muted small mb-1">
-                  <strong>Salary:</strong> {job.salary}
+                  <strong>Salary:</strong> {job.salary.from && job.salary.to ? `$${job.salary.from.toLocaleString()} - $${job.salary.to.toLocaleString()}` : ''}
+                </div>
+              )}
+              {job.workMode && Array.isArray(job.workMode) && job.workMode.length > 0 && (
+                <div className="text-muted small mb-1">
+                  <strong>Work Mode:</strong> {job.workMode.join(', ')}
                 </div>
               )}
             </div>

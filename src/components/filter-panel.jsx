@@ -186,6 +186,31 @@ export default function FilterPanel({ onFilter, onSort, activeFilters, activeSor
                       </div>
                     </AccordionContent>
                   </AccordionItem>
+                  <AccordionItem value="workMode">
+                    <AccordionTrigger>Work Mode</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="space-y-2">
+                        {["Remote", "Onsite", "Hybrid"].map((mode) => (
+                          <div key={mode} className="flex items-center space-x-2 py-1">
+                            <Checkbox
+                              id={`workmode-${mode}`}
+                              checked={Array.isArray(filters.workMode) ? filters.workMode.includes(mode) : false}
+                              onCheckedChange={() => {
+                                let arr = Array.isArray(filters.workMode) ? [...filters.workMode] : [];
+                                if (arr.includes(mode)) {
+                                  arr = arr.filter((m) => m !== mode);
+                                } else {
+                                  arr.push(mode);
+                                }
+                                setFilters({ ...filters, workMode: arr.length > 0 ? arr : undefined });
+                              }}
+                            />
+                            <Label htmlFor={`workmode-${mode}`}>{mode}</Label>
+                          </div>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
                 </Accordion>
               </div>
               <div className="mt-6 flex items-center justify-between">

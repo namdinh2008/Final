@@ -41,17 +41,32 @@ export const companyNames = [
   "ContentCraft"
 ]
 
+// Ngẫu nhiên gán jobType cho các job
+function getRandomJobType() {
+  const types = ["full-time", "part-time", "internship", "contract"];
+  // Tăng xác suất full-time, nhưng vẫn có part-time, internship, contract
+  const weights = [0.5, 0.2, 0.15, 0.15];
+  const r = Math.random();
+  let acc = 0;
+  for (let i = 0; i < types.length; i++) {
+    acc += weights[i];
+    if (r < acc) return [types[i]];
+  }
+  return ["full-time"];
+}
+
 export const mockJobs = [
   {
     id: "job-001",
     title: "Senior Frontend Developer",
     company: "TechCorp",
     location: "San Francisco, CA",
-    salary: "$120,000 - $150,000",
-    experienceLevel: "senior",
-    jobType: "full-time",
-    locationType: "remote",
-    category: "it",
+    salary: { from: 120000, to: 150000 },
+    experienceLevel: ["senior"],
+    jobType: ["full-time"],
+    locationType: ["remote"],
+    category: ["it"],
+    workMode: ["Remote"],
     description:
       "We are looking for a Senior Frontend Developer to join our team. You will be responsible for building user interfaces for our web applications using React and Next.js.",
     qualifications: [
@@ -74,11 +89,12 @@ export const mockJobs = [
     title: "Marketing Manager",
     company: "BrandBoost",
     location: "New York, NY",
-    salary: "$90,000 - $110,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "marketing",
+    salary: { from: 90000, to: 110000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["marketing"],
+    workMode: ["Hybrid"],
     description:
       "We are seeking a Marketing Manager to develop and implement marketing strategies to promote our products and services.",
     qualifications: [
@@ -101,11 +117,12 @@ export const mockJobs = [
     title: "Financial Analyst",
     company: "MoneyWise",
     location: "Chicago, IL",
-    salary: "$80,000 - $95,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "onsite",
-    category: "finance",
+    salary: { from: 80000, to: 95000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["onsite"],
+    category: ["finance"],
+    workMode: ["Onsite"],
     description:
       "We are looking for a Financial Analyst to join our team. You will be responsible for analyzing financial data and providing insights to support business decisions.",
     qualifications: [
@@ -128,11 +145,12 @@ export const mockJobs = [
     title: "Registered Nurse",
     company: "HealthFirst Hospital",
     location: "Boston, MA",
-    salary: "$75,000 - $90,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "onsite",
-    category: "healthcare",
+    salary: { from: 75000, to: 90000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["onsite"],
+    category: ["healthcare"],
+    workMode: ["Onsite"],
     description: "We are seeking a Registered Nurse to provide patient care in our medical-surgical unit.",
     qualifications: [
       "Bachelor's degree in Nursing",
@@ -160,11 +178,12 @@ export const mockJobs = [
     title: "Policy Analyst",
     company: "Government Affairs Office",
     location: "Washington, DC",
-    salary: "$85,000 - $100,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "government",
+    salary: { from: 85000, to: 100000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["government"],
+    workMode: ["Hybrid"],
     description:
       "We are looking for a Policy Analyst to research and analyze policy issues and provide recommendations to government officials.",
     qualifications: [
@@ -193,11 +212,12 @@ export const mockJobs = [
     title: "Junior Web Developer",
     company: "WebSolutions",
     location: "Austin, TX",
-    salary: "$70,000 - $85,000",
-    experienceLevel: "entry",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "it",
+    salary: { from: 70000, to: 85000 },
+    experienceLevel: ["entry"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["it"],
+    workMode: ["Hybrid"],
     description:
       "We are seeking a Junior Web Developer to join our team. You will be responsible for developing and maintaining web applications.",
     qualifications: [
@@ -226,11 +246,12 @@ export const mockJobs = [
     title: "Social Media Specialist",
     company: "DigitalEdge",
     location: "Los Angeles, CA",
-    salary: "$60,000 - $75,000",
-    experienceLevel: "entry",
-    jobType: "full-time",
-    locationType: "remote",
-    category: "marketing",
+    salary: { from: 60000, to: 75000 },
+    experienceLevel: ["entry"],
+    jobType: ["full-time"],
+    locationType: ["remote"],
+    category: ["marketing"],
+    workMode: ["Remote"],
     description:
       "We are looking for a Social Media Specialist to create and manage content for our social media platforms.",
     qualifications: [
@@ -258,11 +279,12 @@ export const mockJobs = [
     title: "Accountant",
     company: "FinancePro",
     location: "Denver, CO",
-    salary: "$65,000 - $80,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "onsite",
-    category: "finance",
+    salary: { from: 65000, to: 80000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["onsite"],
+    category: ["finance"],
+    workMode: ["Onsite"],
     description: "We are seeking an Accountant to maintain financial records and prepare financial reports.",
     qualifications: [
       "Bachelor's degree in Accounting or related field",
@@ -284,11 +306,12 @@ export const mockJobs = [
     title: "Medical Assistant",
     company: "CarePoint Clinic",
     location: "Seattle, WA",
-    salary: "$50,000 - $60,000",
-    experienceLevel: "entry",
-    jobType: "full-time",
-    locationType: "onsite",
-    category: "healthcare",
+    salary: { from: 50000, to: 60000 },
+    experienceLevel: ["entry"],
+    jobType: ["full-time"],
+    locationType: ["onsite"],
+    category: ["healthcare"],
+    workMode: ["Onsite"],
     description: "We are looking for a Medical Assistant to perform clinical and administrative duties in our clinic.",
     qualifications: [
       "Medical Assistant certification",
@@ -310,11 +333,12 @@ export const mockJobs = [
     title: "Public Relations Specialist",
     company: "Government Communications Office",
     location: "Atlanta, GA",
-    salary: "$70,000 - $85,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "government",
+    salary: { from: 70000, to: 85000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["government"],
+    workMode: ["Hybrid"],
     description:
       "We are seeking a Public Relations Specialist to develop and implement communication strategies for government initiatives.",
     qualifications: [
@@ -343,11 +367,12 @@ export const mockJobs = [
     title: "Data Scientist",
     company: "DataInsights",
     location: "Seattle, WA",
-    salary: "$110,000 - $140,000",
-    experienceLevel: "senior",
-    jobType: "full-time",
-    locationType: "remote",
-    category: "it",
+    salary: { from: 110000, to: 140000 },
+    experienceLevel: ["senior"],
+    jobType: ["full-time"],
+    locationType: ["remote"],
+    category: ["it"],
+    workMode: ["Remote"],
     description:
       "We are looking for a Data Scientist to analyze complex data sets and develop machine learning models to solve business problems.",
     qualifications: [
@@ -369,11 +394,12 @@ export const mockJobs = [
     title: "Content Marketing Manager",
     company: "ContentCraft",
     location: "Chicago, IL",
-    salary: "$85,000 - $105,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "marketing",
+    salary: { from: 85000, to: 105000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["marketing"],
+    workMode: ["Hybrid"],
     description:
       "We are seeking a Content Marketing Manager to develop and execute content strategies that drive engagement and conversions.",
     qualifications: [
@@ -402,11 +428,12 @@ export const mockJobs = [
     title: "Backend Developer",
     company: "TechCorp",
     location: "San Jose, CA",
-    salary: "$115,000 - $135,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "onsite",
-    category: "it",
+    salary: { from: 115000, to: 135000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["onsite"],
+    category: ["it"],
+    workMode: ["Onsite"],
     description: "Join our backend team to build scalable APIs and services.",
     qualifications: [
       "Bachelor's degree in Computer Science or related field",
@@ -427,11 +454,12 @@ export const mockJobs = [
     title: "SEO Specialist",
     company: "BrandBoost",
     location: "Remote",
-    salary: "$70,000 - $85,000",
-    experienceLevel: "entry",
-    jobType: "full-time",
-    locationType: "remote",
-    category: "marketing",
+    salary: { from: 70000, to: 85000 },
+    experienceLevel: ["entry"],
+    jobType: ["full-time"],
+    locationType: ["remote"],
+    category: ["marketing"],
+    workMode: ["Remote"],
     description: "Optimize websites and content for search engines.",
     qualifications: [
       "Bachelor's degree in Marketing or related field",
@@ -452,11 +480,12 @@ export const mockJobs = [
     title: "Investment Advisor",
     company: "MoneyWise",
     location: "Chicago, IL",
-    salary: "$90,000 - $120,000",
-    experienceLevel: "senior",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "finance",
+    salary: { from: 90000, to: 120000 },
+    experienceLevel: ["senior"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["finance"],
+    workMode: ["Hybrid"],
     description: "Advise clients on investment strategies and portfolio management.",
     qualifications: [
       "Bachelor's degree in Finance or related field",
@@ -477,11 +506,12 @@ export const mockJobs = [
     title: "Research Coordinator",
     company: "HealthFirst Hospital",
     location: "Boston, MA",
-    salary: "$80,000 - $95,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "onsite",
-    category: "healthcare",
+    salary: { from: 80000, to: 95000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["onsite"],
+    category: ["healthcare"],
+    workMode: ["Onsite"],
     description: "Coordinate and manage clinical research studies.",
     qualifications: [
       "Bachelor's degree in Life Sciences or related field",
@@ -502,11 +532,12 @@ export const mockJobs = [
     title: "Public Policy Advisor",
     company: "Government Affairs Office",
     location: "Washington, DC",
-    salary: "$110,000 - $130,000",
-    experienceLevel: "senior",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "government",
+    salary: { from: 110000, to: 130000 },
+    experienceLevel: ["senior"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["government"],
+    workMode: ["Hybrid"],
     description: "Advise on public policy development and implementation.",
     qualifications: [
       "Master's degree in Public Policy or related field",
@@ -527,11 +558,12 @@ export const mockJobs = [
     title: "UI/UX Designer",
     company: "WebSolutions",
     location: "Austin, TX",
-    salary: "$85,000 - $100,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "it",
+    salary: { from: 85000, to: 100000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["it"],
+    workMode: ["Hybrid"],
     description: "Design user interfaces and experiences for web applications.",
     qualifications: [
       "Bachelor's degree in Design or related field",
@@ -552,11 +584,12 @@ export const mockJobs = [
     title: "Digital Marketing Analyst",
     company: "DigitalEdge",
     location: "Los Angeles, CA",
-    salary: "$75,000 - $90,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "remote",
-    category: "marketing",
+    salary: { from: 75000, to: 90000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["remote"],
+    category: ["marketing"],
+    workMode: ["Remote"],
     description: "Analyze digital marketing campaigns and provide insights.",
     qualifications: [
       "Bachelor's degree in Marketing or related field",
@@ -577,11 +610,12 @@ export const mockJobs = [
     title: "Tax Consultant",
     company: "FinancePro",
     location: "Denver, CO",
-    salary: "$80,000 - $100,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "onsite",
-    category: "finance",
+    salary: { from: 80000, to: 100000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["onsite"],
+    category: ["finance"],
+    workMode: ["Onsite"],
     description: "Provide tax consulting services to clients.",
     qualifications: [
       "Bachelor's degree in Accounting or related field",
@@ -602,11 +636,12 @@ export const mockJobs = [
     title: "Patient Services Coordinator",
     company: "CarePoint Clinic",
     location: "Seattle, WA",
-    salary: "$55,000 - $65,000",
-    experienceLevel: "entry",
-    jobType: "full-time",
-    locationType: "onsite",
-    category: "healthcare",
+    salary: { from: 55000, to: 65000 },
+    experienceLevel: ["entry"],
+    jobType: ["full-time"],
+    locationType: ["onsite"],
+    category: ["healthcare"],
+    workMode: ["Onsite"],
     description: "Coordinate patient services and administrative tasks.",
     qualifications: [
       "Associate's degree or equivalent experience",
@@ -627,11 +662,12 @@ export const mockJobs = [
     title: "Communications Officer",
     company: "Government Communications Office",
     location: "Atlanta, GA",
-    salary: "$80,000 - $95,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "government",
+    salary: { from: 80000, to: 95000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["government"],
+    workMode: ["Hybrid"],
     description: "Manage internal and external communications for government initiatives.",
     qualifications: [
       "Bachelor's degree in Communications or related field",
@@ -652,11 +688,12 @@ export const mockJobs = [
     title: "Machine Learning Engineer",
     company: "DataInsights",
     location: "Seattle, WA",
-    salary: "$120,000 - $150,000",
-    experienceLevel: "senior",
-    jobType: "full-time",
-    locationType: "remote",
-    category: "it",
+    salary: { from: 120000, to: 150000 },
+    experienceLevel: ["senior"],
+    jobType: ["full-time"],
+    locationType: ["remote"],
+    category: ["it"],
+    workMode: ["Remote"],
     description: "Develop and deploy machine learning models for business applications.",
     qualifications: [
       "Master's degree in Computer Science or related field",
@@ -677,11 +714,12 @@ export const mockJobs = [
     title: "Copywriter",
     company: "ContentCraft",
     location: "Chicago, IL",
-    salary: "$65,000 - $80,000",
-    experienceLevel: "entry",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "marketing",
+    salary: { from: 65000, to: 80000 },
+    experienceLevel: ["entry"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["marketing"],
+    workMode: ["Hybrid"],
     description: "Write compelling copy for marketing campaigns and content.",
     qualifications: [
       "Bachelor's degree in Communications, Marketing, or related field",
@@ -702,11 +740,12 @@ export const mockJobs = [
     title: "Cloud Solutions Architect",
     company: "TechCorp",
     location: "San Francisco, CA",
-    salary: "$140,000 - $170,000",
-    experienceLevel: "senior",
-    jobType: "full-time",
-    locationType: "remote",
-    category: "it",
+    salary: { from: 140000, to: 170000 },
+    experienceLevel: ["senior"],
+    jobType: ["full-time"],
+    locationType: ["remote"],
+    category: ["it"],
+    workMode: ["Remote"],
     description: "Design and implement cloud solutions for enterprise clients.",
     qualifications: [
       "Bachelor's degree in Computer Science or related field",
@@ -727,11 +766,12 @@ export const mockJobs = [
     title: "Brand Strategist",
     company: "BrandBoost",
     location: "New York, NY",
-    salary: "$95,000 - $115,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "marketing",
+    salary: { from: 95000, to: 115000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["marketing"],
+    workMode: ["Hybrid"],
     description: "Develop and execute brand strategies for clients.",
     qualifications: [
       "Bachelor's degree in Marketing or related field",
@@ -752,11 +792,12 @@ export const mockJobs = [
     title: "Financial Controller",
     company: "FinancePro",
     location: "Denver, CO",
-    salary: "$110,000 - $130,000",
-    experienceLevel: "senior",
-    jobType: "full-time",
-    locationType: "onsite",
-    category: "finance",
+    salary: { from: 110000, to: 130000 },
+    experienceLevel: ["senior"],
+    jobType: ["full-time"],
+    locationType: ["onsite"],
+    category: ["finance"],
+    workMode: ["Onsite"],
     description: "Oversee financial operations and reporting for clients.",
     qualifications: [
       "Bachelor's degree in Accounting or related field",
@@ -777,11 +818,12 @@ export const mockJobs = [
     title: "Nurse Practitioner",
     company: "HealthFirst Hospital",
     location: "Boston, MA",
-    salary: "$100,000 - $120,000",
-    experienceLevel: "senior",
-    jobType: "full-time",
-    locationType: "onsite",
-    category: "healthcare",
+    salary: { from: 100000, to: 120000 },
+    experienceLevel: ["senior"],
+    jobType: ["full-time"],
+    locationType: ["onsite"],
+    category: ["healthcare"],
+    workMode: ["Onsite"],
     description: "Provide advanced nursing care to patients in a hospital setting.",
     qualifications: [
       "Master's degree in Nursing",
@@ -802,11 +844,12 @@ export const mockJobs = [
     title: "Legislative Assistant",
     company: "Government Affairs Office",
     location: "Washington, DC",
-    salary: "$75,000 - $90,000",
-    experienceLevel: "entry",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "government",
+    salary: { from: 75000, to: 90000 },
+    experienceLevel: ["entry"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["government"],
+    workMode: ["Hybrid"],
     description: "Assist with legislative research and administrative tasks.",
     qualifications: [
       "Bachelor's degree in Political Science or related field",
@@ -827,11 +870,12 @@ export const mockJobs = [
     title: "Full Stack Developer",
     company: "WebSolutions",
     location: "Austin, TX",
-    salary: "$105,000 - $125,000",
-    experienceLevel: "mid",
-    jobType: "full-time",
-    locationType: "hybrid",
-    category: "it",
+    salary: { from: 105000, to: 125000 },
+    experienceLevel: ["mid"],
+    jobType: ["full-time"],
+    locationType: ["hybrid"],
+    category: ["it"],
+    workMode: ["Hybrid"],
     description: "Develop and maintain full stack web applications.",
     qualifications: [
       "Bachelor's degree in Computer Science or related field",
@@ -847,7 +891,14 @@ export const mockJobs = [
     companyDescription: "WebSolutions is a web development agency that creates custom websites and web applications for businesses.",
     companyLogo: "https://cdn-icons-png.flaticon.com/256/1055/1055666.png"
   }
-]
+].map((job, idx) => {
+  // Không random cho 5 job đầu để giữ dữ liệu mẫu gốc
+  if (idx < 5) return job;
+  return {
+    ...job,
+    jobType: getRandomJobType(),
+  };
+})
 
 export function getJobById(id) {
   return mockJobs.find((job) => job.id === id)
@@ -872,13 +923,17 @@ export function filterJobs(
   filters
 ) {
   return jobs.filter((job) => {
-    if (filters.category && filters.category.length > 0 && !filters.category.includes(job.category)) return false
-    if (filters.experienceLevel && filters.experienceLevel.length > 0 && !filters.experienceLevel.includes(job.experienceLevel)) return false
-    if (filters.jobType && filters.jobType.length > 0 && !filters.jobType.includes(job.jobType)) return false
-    if (filters.locationType && filters.locationType.length > 0 && !filters.locationType.includes(job.locationType)) return false
-    if (filters.location && !job.location.toLowerCase().includes(filters.location.toLowerCase())) return false
-    return true
-  })
+    // category, experienceLevel, jobType, locationType đều là mảng trong job, nên cần kiểm tra giao nhau
+    if (filters.category && filters.category.length > 0 && !filters.category.some((cat) => job.category.includes(cat))) return false;
+    if (filters.experienceLevel && filters.experienceLevel.length > 0 && !filters.experienceLevel.some((lvl) => job.experienceLevel.includes(lvl))) return false;
+    if (filters.jobType && filters.jobType.length > 0 && !filters.jobType.some((type) => job.jobType.includes(type))) return false;
+    if (filters.locationType && filters.locationType.length > 0 && !filters.locationType.some((type) => job.locationType.includes(type))) return false;
+    if (filters.location && !job.location.toLowerCase().includes(filters.location.toLowerCase())) return false;
+    if (filters.workMode && filters.workMode.length > 0) {
+      if (!filters.workMode.some((mode) => job.workMode.includes(mode))) return false;
+    }
+    return true;
+  });
 }
 
 export function sortJobs(jobs, sortBy) {
