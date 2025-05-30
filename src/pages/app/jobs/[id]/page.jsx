@@ -6,7 +6,7 @@ import { Bookmark } from "lucide-react";
 export default function JobDetailPage() {
   const { id } = useParams();
   const router = useNavigate();
-  const [job, setJob] = useState(getJobById(id));
+  const [job, setJob] = useState(() => getJobById(id));
   const [savedJobs, setSavedJobs] = useState([]);
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,13 +17,17 @@ export default function JobDetailPage() {
   });
 
   useEffect(() => {
+    setJob(getJobById(id)); // Cập nhật job khi id thay đổi
+  }, [id]);
+
+  useEffect(() => {
     const savedJobsFromStorage = localStorage.getItem("savedJobs");
     if (savedJobsFromStorage) {
       setSavedJobs(JSON.parse(savedJobsFromStorage));
     }
   }, []);
 
-  if (!job) {
+  if (!job || typeof job !== 'object') {
     return (
       <div className="container py-5 text-center">
         <h1 className="display-5 fw-bold">Job not found</h1>
@@ -82,12 +86,12 @@ export default function JobDetailPage() {
               </div>
 
               <div className="row row-cols-2 gy-2 mb-3">
-                <div><strong>Location:</strong> {job.location}</div>
-                <div><strong>Job Type:</strong> {job.jobType}</div>
-                <div><strong>Posted:</strong> {new Date(job.postedDate).toLocaleDateString()}</div>
-                <div><strong>Deadline:</strong> {new Date(job.deadline).toLocaleDateString()}</div>
-                {job.salary && <div><strong>Salary:</strong> {job.salary}</div>}
-                <div><strong>Work Setup:</strong> {job.locationType}</div>
+                <div><strong>Location:</strong> {job.location || ''}</div>
+                <div><strong>Job Type:</strong> {Array.isArray(job.jobType) ? job.jobType.join(', ') : ''}</div>
+                <div><strong>Posted:</strong> {job.postedDate ? new Date(job.postedDate).toLocaleDateString() : ''}</div>
+                <div><strong>Deadline:</strong> {job.deadline ? new Date(job.deadline).toLocaleDateString() : ''}</div>
+                {job.salary && job.salary.from && job.salary.to && <div><strong>Salary:</strong> ${job.salary.from.toLocaleString()} - ${job.salary.to.toLocaleString()}</div>}
+                <div><strong>Work Setup:</strong> {Array.isArray(job.locationType) ? job.locationType.join(', ') : ''}</div>
               </div>
 
               <hr/>
@@ -97,19 +101,19 @@ export default function JobDetailPage() {
 
               <h5 className="mt-4">Qualifications</h5>
               <ul className="text-muted">
-                {job.qualifications.map((q, i) => <li key={i}>{q}</li>)}
+                {Array.isArray(job.qualifications) && job.qualifications.map((q, i) => <li key={i}>{q}</li>)}
               </ul>
 
               <h5 className="mt-4">Skills</h5>
               <div className="d-flex flex-wrap gap-2">
-                {job.skills.map((s, i) => (
+                {Array.isArray(job.skills) && job.skills.map((s, i) => (
                   <span key={i} className="badge bg-dark">{s}</span>
                 ))}
               </div>
 
               <h5 className="mt-4">Perks & Benefits</h5>
               <ul className="text-muted">
-                {job.perks.map((p, i) => <li key={i}>{p}</li>)}
+                {Array.isArray(job.perks) && job.perks.map((p, i) => <li key={i}>{p}</li>)}
               </ul>
             </div>
           </div>
@@ -120,8 +124,8 @@ export default function JobDetailPage() {
           {/* About TechCorp Section */}
           <div className="card mb-4 shadow-sm border-0 p-0">
             <div className="card-body p-4">
-              <h5 className="card-title mb-3">About {job.company}</h5>
-              <p className="text-muted">{job.companyDescription}</p>
+              <h5 className="card-title mb-3">About {job.company || ''}</h5>
+              <p className="text-muted">{job.companyDescription || ''}</p>
               <button className="btn btn-primary w-100 mt-3" onClick={() => setIsApplyModalOpen(true)}>
                 Apply Now
               </button>
@@ -135,27 +139,27 @@ export default function JobDetailPage() {
               <ul className="list-unstyled">
                 <li className="mb-2 d-flex justify-content-between align-items-center">
                   <div className="text-muted fw-medium">Job ID</div>
-                  <div className="fw-medium text-capitalize">{job.id}</div>
+                  <div className="fw-medium text-capitalize">{job.id || ''}</div>
                 </li>
                 <li className="mb-2 d-flex justify-content-between align-items-center">
                   <div className="text-muted fw-medium">Experience</div>
-                  <div className="fw-medium text-capitalize">{job.experienceLevel} Level</div>
+                  <div className="fw-medium text-capitalize">{Array.isArray(job.experienceLevel) ? job.experienceLevel.join(', ') : ''} Level</div>
                 </li>
                 <li className="mb-2 d-flex justify-content-between align-items-center">
                   <div className="text-muted fw-medium">Job Type</div>
-                  <div className="fw-medium text-capitalize">{job.jobType}</div>
+                  <div className="fw-medium text-capitalize">{Array.isArray(job.jobType) ? job.jobType.join(', ') : ''}</div>
                 </li>
                 <li className="mb-2 d-flex justify-content-between align-items-center">
                   <div className="text-muted fw-medium">Location Type</div>
-                  <div className="fw-medium text-capitalize">{job.locationType}</div>
+                  <div className="fw-medium text-capitalize">{Array.isArray(job.locationType) ? job.locationType.join(', ') : ''}</div>
                 </li>
                 <li className="mb-2 d-flex justify-content-between align-items-center">
                   <div className="text-muted fw-medium">Posted Date</div>
-                  <div className="fw-medium">{new Date(job.postedDate).toLocaleDateString()}</div>
+                  <div className="fw-medium">{job.postedDate ? new Date(job.postedDate).toLocaleDateString() : ''}</div>
                 </li>
                 <li className="mb-2 d-flex justify-content-between align-items-center">
                   <div className="text-muted fw-medium">Deadline</div>
-                  <div className="fw-medium">{new Date(job.deadline).toLocaleDateString()}</div>
+                  <div className="fw-medium">{job.deadline ? new Date(job.deadline).toLocaleDateString() : ''}</div>
                 </li>
               </ul>
             </div>
