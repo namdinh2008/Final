@@ -1,16 +1,24 @@
-"use client"
+"use client";
 
-import { Navbar, Nav, Button, Container } from "react-bootstrap"
-import { Link } from "react-router-dom"
-import { Briefcase } from "lucide-react"
+import { Navbar, Nav, Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Briefcase } from "lucide-react";
 
 export default function Header() {
   return (
-    <Navbar bg="white" expand="lg" className="border-bottom shadow-sm py-3 sticky-top">
+    <Navbar
+      bg="white"
+      expand="lg"
+      className="border-bottom shadow-sm py-3 sticky-top"
+    >
       <Container>
         {/* Logo */}
-        <Navbar.Brand as={Link} to="/" className="fw-bold fs-4 text-primary d-flex align-items-center gap-2">
-          <Briefcase className="h-6 w-6 text-primary" />
+        <Navbar.Brand
+          as={Link}
+          to="/"
+          className="fw-bold fs-4 text-success d-flex align-items-center gap-2"
+        >
+          <Briefcase className="h-6 w-6 text-success" />
           <span>JobHive</span>
         </Navbar.Brand>
 
@@ -37,15 +45,15 @@ export default function Header() {
 
           {/* Auth Buttons */}
           <div className="d-flex gap-2 mt-3 mt-lg-0">
-            <Button variant="outline-primary" className="px-4 rounded-pill">
+            <Button variant="outline-success" className="px-4 rounded-pill">
               Sign In
             </Button>
-            <Button variant="primary" className="px-4 rounded-pill">
+            <Button variant="success" className="px-4 rounded-pill">
               Sign Up
             </Button>
           </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
+  );
 }

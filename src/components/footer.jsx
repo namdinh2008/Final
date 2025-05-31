@@ -1,6 +1,6 @@
-import { Container, Row, Col } from "react-bootstrap"
-import { Link } from "react-router-dom"
-import { Briefcase } from "lucide-react"
+import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Briefcase } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -9,18 +9,21 @@ export default function Footer() {
         <Row className="gy-4">
           {/* Branding */}
           <Col md={3}>
-            <h4 className="fw-bold text-primary d-flex align-items-center gap-2">
-              <Briefcase className="h-6 w-6 text-primary" />
+            <h4 className="fw-bold text-success d-flex align-items-center gap-2">
+              <Briefcase className="h-6 w-6 text-success" />
               <span>JobHive</span>
             </h4>
             <p className="text-muted small mb-0">
-              Helping you find your dream job with top companies and smart tools.
+              Helping you find your dream job with top companies and smart
+              tools.
             </p>
           </Col>
 
           {/* Quick Links */}
           <Col md={3}>
-            <h6 className="text-uppercase fw-semibold text-dark mb-3">Quick Links</h6>
+            <h6 className="text-uppercase fw-semibold text-dark mb-3">
+              Quick Links
+            </h6>
             <ul className="list-unstyled small">
               {[
                 { to: "/", label: "Home" },
@@ -28,7 +31,10 @@ export default function Footer() {
                 { to: "/feedback", label: "Feedback" },
               ].map((link) => (
                 <li key={link.to} className="mb-2">
-                  <Link to={link.to} className="text-muted text-decoration-none hover-link">
+                  <Link
+                    to={link.to}
+                    className="text-muted text-decoration-none hover-link"
+                  >
                     {link.label}
                   </Link>
                 </li>
@@ -38,7 +44,9 @@ export default function Footer() {
 
           {/* Categories */}
           <Col md={3}>
-            <h6 className="text-uppercase fw-semibold text-dark mb-3">Categories</h6>
+            <h6 className="text-uppercase fw-semibold text-dark mb-3">
+              Categories
+            </h6>
             <ul className="list-unstyled small">
               {[
                 ["it", "IT & Software"],
@@ -46,7 +54,10 @@ export default function Footer() {
                 ["finance", "Finance"],
               ].map(([slug, label]) => (
                 <li key={slug} className="mb-2">
-                  <Link to={`/?category=${slug}`} className="text-muted text-decoration-none hover-link">
+                  <Link
+                    to={`/?category=${slug}`}
+                    className="text-muted text-decoration-none hover-link"
+                  >
                     {label}
                   </Link>
                 </li>
@@ -56,16 +67,24 @@ export default function Footer() {
 
           {/* Contact */}
           <Col md={3}>
-            <h6 className="text-uppercase fw-semibold text-dark mb-3">Contact</h6>
+            <h6 className="text-uppercase fw-semibold text-dark mb-3">
+              Contact
+            </h6>
             <ul className="list-unstyled small text-muted">
               <li className="mb-2">123 Job Street, Career City</li>
               <li className="mb-2">
-                <a href="mailto:info@jobhive.com" className="text-muted text-decoration-none hover-link">
+                <a
+                  href="mailto:info@jobhive.com"
+                  className="text-muted text-decoration-none hover-link"
+                >
                   info@jobhive.com
                 </a>
               </li>
               <li>
-                <Link to="/contact" className="text-muted text-decoration-none hover-link">
+                <Link
+                  to="/contact"
+                  className="text-muted text-decoration-none hover-link"
+                >
                   Contact Us
                 </Link>
               </li>
@@ -79,5 +98,5 @@ export default function Footer() {
         </div>
       </Container>
     </footer>
-  )
+  );
 }

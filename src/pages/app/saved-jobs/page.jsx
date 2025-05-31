@@ -1,31 +1,35 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { Bookmark } from "lucide-react"
-import JobCard from "@/components/job-card"
-import { mockJobs } from "@/lib/data"
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Bookmark } from "lucide-react";
+import JobCard from "@/components/job-card";
+import { mockJobs } from "@/lib/data";
 
 export default function SavedJobsPage() {
-  const navigate = useNavigate()
-  const [savedJobs, setSavedJobs] = useState([])
+  const navigate = useNavigate();
+  const [savedJobs, setSavedJobs] = useState([]);
   const [savedJobsData, setSavedJobsData] = useState(
     mockJobs.filter((job) => savedJobs.includes(job.id))
-  )
+  );
 
   useEffect(() => {
-    const savedJobsFromStorage = localStorage.getItem("savedJobs")
+    const savedJobsFromStorage = localStorage.getItem("savedJobs");
     if (savedJobsFromStorage) {
-      const parsedSavedJobs = JSON.parse(savedJobsFromStorage)
-      setSavedJobs(parsedSavedJobs)
-      setSavedJobsData(mockJobs.filter((job) => parsedSavedJobs.includes(job.id)))
+      const parsedSavedJobs = JSON.parse(savedJobsFromStorage);
+      setSavedJobs(parsedSavedJobs);
+      setSavedJobsData(
+        mockJobs.filter((job) => parsedSavedJobs.includes(job.id))
+      );
     }
-  }, [])
+  }, []);
 
   const toggleSaveJob = (jobId) => {
-    const updatedSavedJobs = savedJobs.filter((id) => id !== jobId)
-    setSavedJobs(updatedSavedJobs)
-    setSavedJobsData(mockJobs.filter((job) => updatedSavedJobs.includes(job.id)))
-    localStorage.setItem("savedJobs", JSON.stringify(updatedSavedJobs))
-  }
+    const updatedSavedJobs = savedJobs.filter((id) => id !== jobId);
+    setSavedJobs(updatedSavedJobs);
+    setSavedJobsData(
+      mockJobs.filter((job) => updatedSavedJobs.includes(job.id))
+    );
+    localStorage.setItem("savedJobs", JSON.stringify(updatedSavedJobs));
+  };
 
   return (
     <div className="container py-5">
@@ -49,11 +53,12 @@ export default function SavedJobsPage() {
           <Bookmark size={64} className="mb-3" />
           <h3 className="mb-2">No saved jobs yet</h3>
           <p className="mb-4 fs-5">
-            When you find a job you like, click the bookmark icon to save it for later.
+            When you find a job you like, click the bookmark icon to save it for
+            later.
           </p>
           <button
             type="button"
-            className="btn btn-primary btn-lg"
+            className="btn btn-success btn-lg"
             onClick={() => navigate("/")}
           >
             Browse Jobs
@@ -61,5 +66,5 @@ export default function SavedJobsPage() {
         </div>
       )}
     </div>
-  )
+  );
 }

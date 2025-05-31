@@ -41,10 +41,9 @@ export const companyNames = [
   "ContentCraft"
 ]
 
-// Ngẫu nhiên gán jobType cho các job
 function getRandomJobType() {
   const types = ["full-time", "part-time", "internship", "contract"];
-  // Tăng xác suất full-time, nhưng vẫn có part-time, internship, contract
+
   const weights = [0.5, 0.2, 0.15, 0.15];
   const r = Math.random();
   let acc = 0;
@@ -892,7 +891,7 @@ export const mockJobs = [
     companyLogo: "https://cdn-icons-png.flaticon.com/256/1055/1055666.png"
   }
 ].map((job, idx) => {
-  // Không random cho 5 job đầu để giữ dữ liệu mẫu gốc
+
   if (idx < 5) return job;
   return {
     ...job,
@@ -952,4 +951,8 @@ export function sortJobs(jobs, sortBy) {
     default:
       return sortedJobs
   }
+}
+
+export function getSimilarJobs(category, excludeId) {
+  return mockJobs.filter((job) => job.category.includes(category) && job.id !== excludeId);
 }

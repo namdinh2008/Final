@@ -1,5 +1,5 @@
-import { Card, Badge, Button, Row, Col } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Card, Badge, Button, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { Bookmark } from "lucide-react";
 
 export default function JobCard({ job, onSave, isSaved }) {
@@ -7,20 +7,20 @@ export default function JobCard({ job, onSave, isSaved }) {
     entry: "Entry Level",
     mid: "Mid Level",
     senior: "Senior Level",
-  }
+  };
 
   const jobTypeMap = {
     "full-time": "Full-time",
     "part-time": "Part-time",
     internship: "Internship",
     contract: "Contract",
-  }
+  };
 
   const locationTypeMap = {
     remote: "Remote",
     onsite: "Onsite",
     hybrid: "Hybrid",
-  }
+  };
 
   return (
     <Card className="shadow-sm mb-4 border-0 p-0">
@@ -28,7 +28,10 @@ export default function JobCard({ job, onSave, isSaved }) {
         <Row className="align-items-start">
           {/* Logo & Company */}
           <Col xs="auto">
-            <div className="d-flex align-items-center justify-content-center" style={{ width: 32, height: 32 }}>
+            <div
+              className="d-flex align-items-center justify-content-center"
+              style={{ width: 32, height: 32 }}
+            >
               <img
                 src={job.companyLogo || "/placeholder.svg?height=48&width=48"}
                 alt={job.company}
@@ -41,7 +44,10 @@ export default function JobCard({ job, onSave, isSaved }) {
             <div className="d-flex justify-content-between">
               <div>
                 <h5 className="mb-1 fw-semibold">
-                  <Link to={`/jobs/${job.id}`} className="text-decoration-none text-dark">
+                  <Link
+                    to={`/jobs/${job.id}`}
+                    className="text-decoration-none text-dark"
+                  >
                     {job.title}
                   </Link>
                 </h5>
@@ -55,7 +61,7 @@ export default function JobCard({ job, onSave, isSaved }) {
               >
                 <Bookmark
                   size={18}
-                  className={isSaved ? "text-primary" : "text-muted"}
+                  className={isSaved ? "text-success" : "text-muted"}
                   fill={isSaved ? "currentColor" : "none"}
                 />
               </Button>
@@ -68,14 +74,19 @@ export default function JobCard({ job, onSave, isSaved }) {
               </div>
               {job.salary && (
                 <div className="text-muted small mb-1">
-                  <strong>Salary:</strong> {job.salary.from && job.salary.to ? `$${job.salary.from.toLocaleString()} - $${job.salary.to.toLocaleString()}` : ''}
+                  <strong>Salary:</strong>{" "}
+                  {job.salary.from && job.salary.to
+                    ? `$${job.salary.from.toLocaleString()} - $${job.salary.to.toLocaleString()}`
+                    : ""}
                 </div>
               )}
-              {job.workMode && Array.isArray(job.workMode) && job.workMode.length > 0 && (
-                <div className="text-muted small mb-1">
-                  <strong>Work Mode:</strong> {job.workMode.join(', ')}
-                </div>
-              )}
+              {job.workMode &&
+                Array.isArray(job.workMode) &&
+                job.workMode.length > 0 && (
+                  <div className="text-muted small mb-1">
+                    <strong>Work Mode:</strong> {job.workMode.join(", ")}
+                  </div>
+                )}
             </div>
 
             {/* Badges */}
@@ -96,11 +107,11 @@ export default function JobCard({ job, onSave, isSaved }) {
       <Card.Footer className="bg-body-secondary text-muted d-flex justify-content-between align-items-center small">
         <span>Posted: {new Date(job.postedDate).toLocaleDateString()}</span>
         <Link to={`/jobs/${job.id}`}>
-          <Button size="sm" variant="primary">
+          <Button size="sm" variant="success">
             Apply Now
           </Button>
         </Link>
       </Card.Footer>
     </Card>
-  )
+  );
 }
