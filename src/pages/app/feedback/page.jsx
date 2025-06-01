@@ -81,7 +81,7 @@ export default function FeedbackPage() {
                       <button
                         key={star}
                         type="button"
-                        className="btn btn-link p-1 text-decoration-none" // Use btn-link for star-like button
+                        className="btn btn-link p-1 text-decoration-none"
                         onMouseEnter={() => setHoveredRating(star)}
                         onMouseLeave={() => setHoveredRating(0)}
                         onClick={() => setRating(star)}

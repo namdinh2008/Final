@@ -493,12 +493,12 @@ export default function JobDetailPage() {
                               : ""}
                           </div>
                         )}
-                        <a
-                          href={`/jobs/${item.id}`}
+                        <div
                           className="btn btn-sm btn-success"
+                          onClick={() => router("/jobs/" + item.id)}
                         >
                           View Details
-                        </a>
+                        </div>
                       </div>
                     </div>
                   </div>
