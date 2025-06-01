@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Search } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Form } from "react-bootstrap"
+import { useState } from "react";
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Form } from "react-bootstrap";
 
 export default function SearchBar({ onSearch, initialQuery = "" }) {
-  const [query, setQuery] = useState(initialQuery)
+  const [query, setQuery] = useState(initialQuery);
 
   const handleChange = (e) => {
-    const value = e.target.value
-    setQuery(value)
-    onSearch(value)
-  }
+    const value = e.target.value;
+    setQuery(value);
+    onSearch(value);
+  };
 
   return (
     <div className="relative w-full">
@@ -23,10 +23,13 @@ export default function SearchBar({ onSearch, initialQuery = "" }) {
           defaultValue={initialQuery}
           onChange={handleChange}
           className="mb-3 pl-10 pr-4"
+          style={{
+            boxShadow: "none",
+            outline: "none",
+            border: "1px solid #ced4da",
+          }}
         />
       </div>
     </div>
-  )
+  );
 }
-
-

@@ -30,13 +30,13 @@ export default function JobCard({ job, onSave, isSaved }) {
           <Col xs="auto">
             <div
               className="d-flex align-items-center justify-content-center"
-              style={{ width: 32, height: 32 }}
+              style={{ width: 60, height: 60 }}
             >
               <img
                 src={job.companyLogo || "/placeholder.svg?height=48&width=48"}
                 alt={job.company}
-                className="w-8 h-8 rounded-md object-contain bg-gray-50 border"
-                style={{ maxHeight: 32, maxWidth: 32 }}
+                className="rounded bg-light"
+                style={{ maxHeight: 48, objectFit: "contain" }}
               />
             </div>
           </Col>

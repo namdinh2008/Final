@@ -35,7 +35,7 @@ export default function FeedbackPage() {
                   us. Your feedback helps us improve JobHive.
                 </p>
                 <button
-                  type="button" // Important for buttons not inside a form
+                  type="button"
                   className="btn btn-success btn-lg"
                   onClick={() => {
                     setIsSubmitted(false);
@@ -102,7 +102,7 @@ export default function FeedbackPage() {
                               star <= (hoveredRating || rating)
                                 ? "currentColor"
                                 : "none",
-                          }} // Fill for selected stars
+                          }}
                         />
                       </button>
                     ))}
@@ -119,6 +119,11 @@ export default function FeedbackPage() {
                     value={feedback}
                     onChange={(e) => setFeedback(e.target.value)}
                     rows={5}
+                    style={{
+                      boxShadow: "none",
+                      outline: "none",
+                      border: "1px solid #ced4da",
+                    }}
                   ></textarea>
                 </div>
               </div>

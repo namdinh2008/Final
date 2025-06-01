@@ -943,9 +943,9 @@ export function sortJobs(jobs, sortBy) {
       return sortedJobs.sort((a, b) => new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime())
     case "salary":
       return sortedJobs.sort((a, b) => {
-        const aSalary = a.salary ? Number.parseInt(a.salary.replace(/[^0-9]/g, "")) : 0
-        const bSalary = b.salary ? Number.parseInt(b.salary.replace(/[^0-9]/g, "")) : 0
-        return bSalary - aSalary
+        const aSalary = a.salary && typeof a.salary === "string" ? Number.parseInt(a.salary.replace(/[^0-9]/g, "")) : 0;
+        const bSalary = b.salary && typeof b.salary === "string" ? Number.parseInt(b.salary.replace(/[^0-9]/g, "")) : 0;
+        return bSalary - aSalary;
       })
     case "relevance":
     default:

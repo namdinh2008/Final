@@ -16,9 +16,10 @@ export default function JobDetailPage() {
     coverLetter: "",
   });
   const [similarJobs, setSimilarJobs] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    setJob(getJobById(id)); // Cập nhật job khi id thay đổi
+    setJob(getJobById(id));
   }, [id]);
 
   useEffect(() => {
@@ -34,6 +35,15 @@ export default function JobDetailPage() {
       setSimilarJobs(fetchedSimilarJobs.slice(0, 3));
     }
   }, [job]);
+
+  useEffect(() => {
+    const carouselElement = document.getElementById("photoCarousel");
+    if (carouselElement) {
+      carouselElement.addEventListener("slid.bs.carousel", (event) => {
+        setActiveIndex(event.to);
+      });
+    }
+  }, []);
 
   if (!job || typeof job !== "object") {
     return (
@@ -73,6 +83,12 @@ export default function JobDetailPage() {
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     border: "1px solid rgba(0, 0, 0, 0.1)",
     borderRadius: "8px",
+  };
+
+  const removeFocus = {
+    boxShadow: "none",
+    outline: "none",
+    border: "1px solid #ced4da",
   };
 
   return (
@@ -184,6 +200,157 @@ export default function JobDetailPage() {
                   job.perks.map((p, i) => <li key={i}>{p}</li>)}
               </ul>
             </div>
+          </div>
+
+          <div className="card shadow-sm p-4 mt-4" style={cardStyle}>
+            <div className="d-flex align-items-center mb-3">
+              <h5 className="mb-0 fw-bold">Safe Job Search Tips</h5>
+            </div>
+
+            <p className="text-muted mb-3">
+              Below are signs of non-transparent recruitment organizations and
+              individuals:
+            </p>
+
+            <div className="text-success fw-semibold mb-2">
+              1. Popular signs:
+            </div>
+
+            <div
+              id="photoCarousel"
+              className="carousel slide rounded-4"
+              data-bs-ride="carousel"
+              style={{ margin: "auto" }}
+            >
+              <div className="carousel-inner">
+                <div className="carousel-item active">
+                  <img
+                    src="https://cdn-new.topcv.vn/unsafe/https://static.topcv.vn/v4/image/report/1.png"
+                    className="d-block mx-auto"
+                    style={{ width: "250px" }}
+                    alt="Image 1"
+                  />
+                  <p className="text-center text-muted my-4">
+                    Request to sign unclear documents or submit original
+                    documents
+                  </p>
+                </div>
+
+                <div className="carousel-item">
+                  <img
+                    src="https://cdn-new.topcv.vn/unsafe/https://static.topcv.vn/v4/image/report/2.png"
+                    className="d-block mx-auto"
+                    style={{ width: "250px" }}
+                    alt="Image 2"
+                  />
+                  <p className="text-center text-muted my-4">
+                    Promises "easy work, high salary", no need to put in much
+                    effort, easy to get "huge" money
+                  </p>
+                </div>
+                <div className="carousel-item">
+                  <img
+                    src="https://cdn-new.topcv.vn/unsafe/https://static.topcv.vn/v4/image/report/3.png"
+                    className="d-block mx-auto"
+                    alt="Image 3"
+                    style={{ width: "250px" }}
+                  />
+                  <p className="text-center text-muted my-4">
+                    Requires app download, top up, and task completion
+                  </p>
+                </div>
+              </div>
+
+              {/* Indicators as modern buttons */}
+              <div className="d-flex justify-content-center gap-2 mt-3">
+                {[...Array(3)].map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    data-bs-target="#photoCarousel"
+                    data-bs-slide-to={i}
+                    className={`btn btn-success btn-sm rounded-circle p-1 ${
+                      i === activeIndex ? "opacity-100 fw-bold" : "opacity-50"
+                    }`}
+                    aria-current={i === activeIndex ? "true" : undefined}
+                    aria-label={`Slide ${i + 1}`}
+                  ></button>
+                ))}
+              </div>
+
+              {/* Prev/Next buttons */}
+              <button
+                className="carousel-control-prev"
+                type="button"
+                data-bs-target="#photoCarousel"
+                data-bs-slide="prev"
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  left: "-100px",
+                  zIndex: "10",
+                }}
+              >
+                <span
+                  className="carousel-control-prev-icon bg-dark rounded-circle p-2"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button
+                className="carousel-control-next"
+                type="button"
+                data-bs-target="#photoCarousel"
+                data-bs-slide="next"
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  right: "-100px",
+                  zIndex: "10",
+                }}
+              >
+                <span
+                  className="carousel-control-next-icon bg-dark rounded-circle p-2"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Next</span>
+              </button>
+            </div>
+
+            <div className="fw-semibold text-success mb-2 mt-4">
+              2. What to do when encountering a job or company that is not
+              transparent:
+            </div>
+
+            <ul className="text-muted small ps-3 mb-0">
+              <li>
+                Check information about the company and job before applying
+              </li>
+              <li>
+                Report the job posting to JobHive via the button{" "}
+                <span className="fw-bold text-dark">"Report job posting"</span>{" "}
+                to get support and help other candidates avoid risks
+              </li>
+              <li>
+                <p className="m-0">
+                  Or contact JobHive via JobHive's candidate support channel:
+                </p>
+                <p className="m-0">
+                  Email:{" "}
+                  <a href="#" className="text-success text-decoration-none">
+                    hotro@jobhive.vn
+                  </a>
+                </p>
+                <p className="m-0">
+                  Hotline:{" "}
+                  <a href="#" className="text-success text-decoration-none">
+                    (035) 123 4567
+                  </a>
+                </p>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -373,11 +540,13 @@ export default function JobDetailPage() {
                       type="text"
                       id="name"
                       className="form-control"
+                      placeholder="Enter your full name"
                       required
                       value={formData.name}
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
                       }
+                      style={removeFocus}
                     />
                   </div>
                   <div className="mb-3">
@@ -388,11 +557,13 @@ export default function JobDetailPage() {
                       type="email"
                       id="email"
                       className="form-control"
+                      placeholder="Enter your email address"
                       required
                       value={formData.email}
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
+                      style={removeFocus}
                     />
                   </div>
                   <div className="mb-3">
@@ -405,6 +576,7 @@ export default function JobDetailPage() {
                       className="form-control"
                       accept=".pdf,.doc,.docx"
                       onChange={handleFileChange}
+                      style={removeFocus}
                     />
                   </div>
                   <div className="mb-3">
@@ -423,6 +595,7 @@ export default function JobDetailPage() {
                           coverLetter: e.target.value,
                         })
                       }
+                      style={removeFocus}
                     ></textarea>
                   </div>
                 </div>

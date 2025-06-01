@@ -1,5 +1,5 @@
-import { Mail, Phone, MapPin } from "lucide-react"
-import { Card } from "react-bootstrap"
+import { Mail, Phone, MapPin } from "lucide-react";
+import { Card } from "react-bootstrap";
 
 export default function ContactPage() {
   return (
@@ -7,7 +7,9 @@ export default function ContactPage() {
       <div className="row justify-content-center mb-4">
         <div className="col-md-8 text-center">
           <h1 className="display-4 font-weight-bold">Contact Us</h1>
-          <p className="lead text-muted">Have questions or need assistance? We're here to help.</p>
+          <p className="lead text-muted">
+            Have questions or need assistance? We're here to help.
+          </p>
         </div>
       </div>
 
@@ -18,7 +20,10 @@ export default function ContactPage() {
               <Mail className="mb-2" size={40} />
               <h5 className="card-title">Email</h5>
               <p className="card-text">
-                <a href="mailto:info@jobhive.com" className="text-decoration-none">
+                <a
+                  href="mailto:info@jobhive.com"
+                  className="text-decoration-none text-success"
+                >
                   info@jobhive.com
                 </a>
               </p>
@@ -31,7 +36,10 @@ export default function ContactPage() {
               <Phone className="mb-2" size={40} />
               <h5 className="card-title">Phone</h5>
               <p className="card-text">
-                <a href="tel:+1234567890" className="text-decoration-none">
+                <a
+                  href="tel:+1234567890"
+                  className="text-decoration-none text-success"
+                >
                   +1234567890
                 </a>
               </p>
@@ -53,7 +61,9 @@ export default function ContactPage() {
         <Card className="mt-4 shadow-lg">
           <Card.Header>
             <Card.Title>Our Location</Card.Title>
-            <Card.Text>Visit our office or send us mail at this address.</Card.Text>
+            <Card.Text>
+              Visit our office or send us mail at this address.
+            </Card.Text>
           </Card.Header>
           <Card.Body>
             <div className="aspect-video w-100 overflow-hidden rounded-md">
@@ -71,5 +81,5 @@ export default function ContactPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

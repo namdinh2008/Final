@@ -37,6 +37,7 @@ export default function Home() {
   const [filters, setFilters] = useState({});
   const [sortBy, setSortBy] = useState("relevance");
   const [currentPage, setCurrentPage] = useState(1);
+  const [focused, setFocused] = useState(false);
   const JOBS_PER_PAGE = 9;
 
   const paginatedJobs = jobs.slice(
@@ -107,40 +108,67 @@ export default function Home() {
   };
 
   const renderDropdown = (label, key, options) => (
-    <div className="dropdown d-inline-block">
+    <div className="dropdown d-inline-block me-2 mb-2">
       <button
-        className="btn btn-outline-secondary dropdown-toggle min-w-160 text-start"
+        className="btn btn-outline-success border-2 dropdown-toggle w-100 d-flex justify-content-between align-items-center text-start"
         type="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
+        style={{
+          minWidth: "180px",
+          maxWidth: "250px",
+          padding: "0.5rem 1rem",
+          borderRadius: "0.5rem",
+        }}
       >
-        {label}
+        <span className="text-truncate">{label}</span>
       </button>
+
       <ul
-        className="dropdown-menu p-3 shadow-sm border rounded"
-        style={{ minWidth: "240px" }}
+        className="dropdown-menu p-3 shadow-lg border-0 rounded-lg"
+        style={{
+          minWidth: "260px",
+          maxHeight: "300px",
+          overflowY: "auto",
+        }}
       >
-        {options.map((opt) => (
-          <li key={opt.id} className="form-check mb-2">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value={opt.id}
-              id={`${key}-${opt.id}`}
-              checked={
-                Array.isArray(filters[key]) && filters[key].includes(opt.id)
-              }
-              onChange={() => handleMultiSelect(key, opt.id)}
-            />
-            <label
-              className="form-check-label ms-2"
-              htmlFor={`${key}-${opt.id}`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {opt.name}
-            </label>
-          </li>
-        ))}
+        <li className="dropdown-item-text pb-2 border-bottom mb-2 text-muted fw-bold text-uppercase small">
+          Select {label.toLowerCase()}
+        </li>
+
+        {options.map((opt) => {
+          const isChecked =
+            Array.isArray(filters[key]) && filters[key].includes(opt.id);
+
+          return (
+            <li key={opt.id}>
+              <div className="form-check py-2 px-3 m-0">
+                <input
+                  className={`form-check-input ${
+                    isChecked ? "bg-success border-success" : ""
+                  }`}
+                  type="checkbox"
+                  value={opt.id}
+                  id={`${key}-${opt.id}`}
+                  checked={isChecked}
+                  onChange={() => handleMultiSelect(key, opt.id)}
+                  style={{
+                    boxShadow: "none",
+                    outline: "none",
+                    border: "1px solid #ced4da",
+                  }}
+                />
+                <label
+                  className="form-check-label ms-2 text-dark cursor-pointer"
+                  htmlFor={`${key}-${opt.id}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {opt.name}
+                </label>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
@@ -165,6 +193,9 @@ export default function Home() {
               value={sortBy}
               onChange={(e) => handleSortChange(e.target.value)}
               className="shadow-sm"
+              style={{
+                border: "1px solid #ced4da",
+              }}
             >
               <option value="relevance">Sort by Relevance</option>
               <option value="date">Sort by Date</option>
@@ -177,7 +208,12 @@ export default function Home() {
               placeholder="Search by location..."
               value={filters.location || ""}
               onChange={handleLocationInput}
-              className="shadow-sm"
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              className="shadow-sm "
+              style={{
+                border: focused ? "2px solid #198754" : "1px solid #ced4da",
+              }}
             />
           </Col>
         </Row>
@@ -194,7 +230,7 @@ export default function Home() {
           {renderDropdown("Work Type", "locationType", locationTypes)}
           {/* Clear Button */}
           <button
-            className="btn btn-outline-secondary ms-2"
+            className="btn btn-success border-4 mb-2"
             onClick={() => setFilters({})}
           >
             Clear
