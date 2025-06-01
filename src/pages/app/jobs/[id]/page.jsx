@@ -512,13 +512,22 @@ export default function JobDetailPage() {
       {/* Apply Modal */}
       {isApplyModalOpen && (
         <div
+          className="modal-backdrop show"
+          style={{ backgroundColor: "rgb(0, 0, 0)" }}
+          onClick={() => setIsApplyModalOpen(false)}
+        ></div>
+      )}
+
+      {isApplyModalOpen && (
+        <div
           className="modal show d-block"
           tabIndex="-1"
           role="dialog"
           onClick={() => setIsApplyModalOpen(false)}
         >
           <div
-            className="modal-dialog modal-lg"
+            className="modal-dialog modal-dialog-centered"
+            style={{ maxWidth: "500px", margin: "auto" }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="modal-content">
