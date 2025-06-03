@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { Form } from "react-bootstrap";
 
 export default function SearchBar({ onSearch, initialQuery = "" }) {
@@ -20,12 +18,10 @@ export default function SearchBar({ onSearch, initialQuery = "" }) {
         <Form.Control
           type="text"
           placeholder="Search jobs, companies, or job IDs..."
-          defaultValue={initialQuery}
+          value={query}
           onChange={handleChange}
-          className="mb-3 pl-10 pr-4"
+          className="mb-3 pl-4 pr-4"
           style={{
-            boxShadow: "none",
-            outline: "none",
             border: "1px solid #ced4da",
           }}
         />

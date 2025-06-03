@@ -45,10 +45,20 @@ export default function Header() {
 
           {/* Auth Buttons */}
           <div className="d-flex gap-2 mt-3 mt-lg-0">
-            <Button variant="outline-success" className="px-4 rounded-pill">
+            <Button
+              as={Link}
+              to="/sign-in"
+              variant="outline-success"
+              className="px-4 rounded-pill"
+            >
               Sign In
             </Button>
-            <Button variant="success" className="px-4 rounded-pill">
+            <Button
+              as={Link}
+              to="/sign-up"
+              variant="success"
+              className="px-4 rounded-pill"
+            >
               Sign Up
             </Button>
           </div>

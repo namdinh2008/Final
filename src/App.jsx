@@ -1,18 +1,15 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/app/Home';
 import ContactPage from './pages/app/contact/page';
 import FeedbackPage from './pages/app/feedback/page';
 import JobDetailPage from './pages/app/jobs/[id]/page';
 import SavedJobsPage from './pages/app/saved-jobs/page';
 import RootLayout from './pages/app/layout';
+import SignUp from './components/SignUp';
+import SignIn from './pages/app/sign-in';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <Router>
       <RootLayout>
@@ -22,6 +19,8 @@ function App() {
           <Route path="/feedback" element={<FeedbackPage />} />
           <Route path="/jobs/:id" element={<JobDetailPage />} />
           <Route path="/saved-jobs" element={<SavedJobsPage />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn />} />
         </Routes>
       </RootLayout>
     </Router>
