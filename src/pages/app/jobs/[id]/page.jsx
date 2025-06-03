@@ -70,7 +70,7 @@ export default function JobDetailPage() {
   const handleApply = (e) => {
     e.preventDefault();
     setIsApplyModalOpen(false);
-    alert("Application submitted!"); // Simulate confirmation
+    alert("Application submitted!");
   };
 
   const handleFileChange = (e) => {

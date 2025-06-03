@@ -1,6 +1,7 @@
 import { Card, Badge, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Bookmark } from "lucide-react";
+import "../styles/job-card.css";
 
 export default function JobCard({ job, onSave, isSaved }) {
   const experienceLevelMap = {
@@ -28,17 +29,19 @@ export default function JobCard({ job, onSave, isSaved }) {
         <Row className="align-items-start">
           {/* Logo & Company */}
           <Col xs="auto">
-            <div
-              className="d-flex align-items-center justify-content-center"
-              style={{ width: 60, height: 60 }}
-            >
-              <img
-                src={job.companyLogo || "/placeholder.svg?height=48&width=48"}
-                alt={job.company}
-                className="rounded bg-light"
-                style={{ maxHeight: 48, objectFit: "contain" }}
-              />
-            </div>
+            <Link to={`/jobs/${job.id}`}>
+              <div
+                className="d-flex align-items-center justify-content-center"
+                style={{ width: 60, height: 60 }}
+              >
+                <img
+                  src={job.companyLogo || "/placeholder.svg?height=48&width=48"}
+                  alt={job.company}
+                  className="rounded bg-light"
+                  style={{ maxHeight: 48, objectFit: "contain" }}
+                />
+              </div>
+            </Link>
           </Col>
           <Col>
             <div className="d-flex justify-content-between">
@@ -46,7 +49,7 @@ export default function JobCard({ job, onSave, isSaved }) {
                 <h5 className="mb-1 fw-semibold">
                   <Link
                     to={`/jobs/${job.id}`}
-                    className="text-decoration-none text-dark"
+                    className="text-decoration-none text-dark hover-link"
                   >
                     {job.title}
                   </Link>

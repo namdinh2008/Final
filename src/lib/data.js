@@ -1,4 +1,3 @@
-// Define string literal arrays for categories, levels, types, and location types
 export const jobCategories = [
   { id: "it", name: "IT & Software" },
   { id: "marketing", name: "Marketing" },
@@ -922,7 +921,6 @@ export function filterJobs(
   filters
 ) {
   return jobs.filter((job) => {
-    // category, experienceLevel, jobType, locationType đều là mảng trong job, nên cần kiểm tra giao nhau
     if (filters.category && filters.category.length > 0 && !filters.category.some((cat) => job.category.includes(cat))) return false;
     if (filters.experienceLevel && filters.experienceLevel.length > 0 && !filters.experienceLevel.some((lvl) => job.experienceLevel.includes(lvl))) return false;
     if (filters.jobType && filters.jobType.length > 0 && !filters.jobType.some((type) => job.jobType.includes(type))) return false;
