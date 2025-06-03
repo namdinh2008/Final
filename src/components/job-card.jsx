@@ -184,14 +184,6 @@ export default function JobCard({ job, onSave, isSaved }) {
                 <div className="modal-body">
                   <div className="row row-cols-2 gy-2 mb-3">
                     <div>
-                      <strong className="text-success">Location:</strong>{" "}
-                      {job.location || ""}
-                    </div>
-                    <div>
-                      <strong className="text-success">Job Type:</strong>{" "}
-                      {Array.isArray(job.jobType) ? job.jobType.join(", ") : ""}
-                    </div>
-                    <div>
                       <strong className="text-success">Company:</strong>{" "}
                       {job.company}
                     </div>
@@ -202,6 +194,14 @@ export default function JobCard({ job, onSave, isSaved }) {
                         {job.salary.to.toLocaleString()}
                       </div>
                     )}
+                    <div>
+                      <strong className="text-success">Location:</strong>{" "}
+                      {job.location || ""}
+                    </div>
+                    <div>
+                      <strong className="text-success">Job Type:</strong>{" "}
+                      {Array.isArray(job.jobType) ? job.jobType.join(", ") : ""}
+                    </div>
                   </div>
                   <div className="mb-3">
                     <label htmlFor="name" className="form-label">
