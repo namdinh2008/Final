@@ -180,7 +180,29 @@ export default function JobCard({ job, onSave, isSaved }) {
                     onClick={() => setIsApplyModalOpen(false)}
                   ></button>
                 </div>
+
                 <div className="modal-body">
+                  <div className="row row-cols-2 gy-2 mb-3">
+                    <div>
+                      <strong className="text-success">Location:</strong>{" "}
+                      {job.location || ""}
+                    </div>
+                    <div>
+                      <strong className="text-success">Job Type:</strong>{" "}
+                      {Array.isArray(job.jobType) ? job.jobType.join(", ") : ""}
+                    </div>
+                    <div>
+                      <strong className="text-success">Company:</strong>{" "}
+                      {job.company}
+                    </div>
+                    {job.salary && job.salary.from && job.salary.to && (
+                      <div>
+                        <strong className="text-success">Salary:</strong> $
+                        {job.salary.from.toLocaleString()} - $
+                        {job.salary.to.toLocaleString()}
+                      </div>
+                    )}
+                  </div>
                   <div className="mb-3">
                     <label htmlFor="name" className="form-label">
                       Full Name
@@ -235,7 +257,7 @@ export default function JobCard({ job, onSave, isSaved }) {
                     <textarea
                       id="coverLetter"
                       className="form-control"
-                      rows="5"
+                      rows="4"
                       required
                       value={formData.coverLetter}
                       onChange={(e) =>
