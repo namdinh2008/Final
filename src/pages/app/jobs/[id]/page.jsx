@@ -351,6 +351,15 @@ export default function JobDetailPage() {
                 </p>
               </li>
             </ul>
+
+            <div className="mt-4">
+              <button
+                className="btn btn-outline-success fw-bold w-100"
+                onClick={() => alert("This feature will be updated soon.")}
+              >
+                Report job posting
+              </button>
+            </div>
           </div>
         </div>
 
