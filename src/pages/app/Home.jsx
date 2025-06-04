@@ -38,6 +38,14 @@ export default function Home() {
   const [sortBy, setSortBy] = useState("relevance");
   const [currentPage, setCurrentPage] = useState(1);
   const [focused, setFocused] = useState(false);
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    resume: null,
+    coverLetter: "",
+  });
   const JOBS_PER_PAGE = 9;
 
   const paginatedJobs = jobs.slice(
@@ -176,9 +184,152 @@ export default function Home() {
   return (
     <>
       <Container className="py-5">
-        <div className="bg-body-secondary p-5 rounded mb-4 text-center shadow-sm">
-          <h1 className="display-5 fw-bold">Find Your Dream Job</h1>
-          <p className="text-muted fs-5">
+        {/* Stats Section - TopCV style enhanced */}
+        <section
+          className="mb-5 position-relative"
+          style={{
+            background: "linear-gradient(120deg, #e0ffe6 0%, #b2f7ef 100%)",
+            backgroundImage:
+              "url(https://www.transparenttextures.com/patterns/diagmonds-light.png)",
+            borderRadius: "1.5rem",
+            boxShadow: "0 4px 24px rgba(60,180,120,0.08)",
+            padding: "2.5rem 1rem 2rem 1rem",
+          }}
+        >
+          <div className="text-center mb-4">
+            <h2 className="fw-bold mb-2" style={{ color: '#198754', fontSize: '2.2rem' }}>Platform Statistics</h2>
+            <div className="text-muted fs-5">Discover opportunities and insights from our job platform</div>
+          </div>
+          <div className="row g-4 justify-content-center">
+            <div className="col-6 col-md-2">
+              <div className="bg-white rounded-4 shadow p-4 text-center h-100 border border-success-subtle stat-card">
+                <div className="mb-2">
+                  <i className="fas fa-briefcase fa-2x text-success"></i>
+                </div>
+                <div className="fs-2 fw-bold text-success">{mockJobs.length}</div>
+                <div className="small text-secondary">Jobs</div>
+              </div>
+            </div>
+            <div className="col-6 col-md-2">
+              <div className="bg-white rounded-4 shadow p-4 text-center h-100 border border-primary-subtle stat-card">
+                <div className="mb-2">
+                  <i className="fas fa-building fa-2x text-primary"></i>
+                </div>
+                <div className="fs-2 fw-bold text-primary">{[...new Set(mockJobs.map((j) => j.company))].length}</div>
+                <div className="small text-secondary">Companies</div>
+              </div>
+            </div>
+            <div className="col-6 col-md-2">
+              <div className="bg-white rounded-4 shadow p-4 text-center h-100 border border-info-subtle stat-card">
+                <div className="mb-2">
+                  <i className="fas fa-layer-group fa-2x text-info"></i>
+                </div>
+                <div className="fs-2 fw-bold text-info">{jobCategories.length}</div>
+                <div className="small text-secondary">Categories</div>
+              </div>
+            </div>
+            <div className="col-6 col-md-2">
+              <div className="bg-white rounded-4 shadow p-4 text-center h-100 border border-warning-subtle stat-card">
+                <div className="mb-2">
+                  <i className="fas fa-clock fa-2x text-warning"></i>
+                </div>
+                <div className="fs-2 fw-bold text-warning">{jobTypes.length}</div>
+                <div className="small text-secondary">Job Types</div>
+              </div>
+            </div>
+            <div className="col-6 col-md-2">
+              <div className="bg-white rounded-4 shadow p-4 text-center h-100 border border-danger-subtle stat-card">
+                <div className="mb-2">
+                  <i className="fas fa-user-tie fa-2x text-danger"></i>
+                </div>
+                <div className="fs-2 fw-bold text-danger">{experienceLevels.length}</div>
+                <div className="small text-secondary">Experience Levels</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* Job Advertisement Carousel - High Salary Jobs */}
+        <section className="mb-5">
+          <div className="bg-white rounded-4 shadow p-4">
+            <h4 className="fw-bold mb-4" style={{ color: '#198754' }}>Featured High Salary Jobs</h4>
+            <div id="highSalaryCarousel" className="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+              <div className="carousel-inner">
+                {mockJobs
+                  .filter(job => job.salary && job.salary.to >= 120000)
+                  .sort((a, b) => b.salary.to - a.salary.to)
+                  .slice(0, 5)
+                  .map((job, idx) => (
+                    <div className={`carousel-item${idx === 0 ? ' active' : ''}`} key={job.id}>
+                      <div className="row align-items-center justify-content-center">
+                        <div className="col-12 col-md-3 text-center mb-3 mb-md-0">
+                          <img src={job.companyLogo || '/placeholder.svg'} alt={job.company} className="img-fluid rounded-3 bg-light" style={{ maxHeight: 100, objectFit: 'contain' }} />
+                        </div>
+                        <div className="col-12 col-md-7">
+                          <h5 className="fw-bold mb-1">{job.title}</h5>
+                          <div className="mb-1 text-secondary">{job.company} - {job.location}</div>
+                          <div className="mb-2 text-success fw-semibold" style={{ fontSize: '1.1rem' }}>
+                            Salary: ${job.salary.from.toLocaleString()} - ${job.salary.to.toLocaleString()}
+                          </div>
+                          <div className="mb-2 text-muted" style={{ fontSize: '0.98rem' }}>{job.description}</div>
+                          <a href={`/jobs/${job.id}`} className="btn btn-outline-success px-4 fw-semibold shadow-sm">View Details</a>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+              <button className="carousel-control-prev d-flex align-items-center justify-content-center" type="button" data-bs-target="#highSalaryCarousel" data-bs-slide="prev" style={{ width: 48, height: 48, left: -24, background: '#e0ffe6', borderRadius: '50%', border: '2px solid #198754', boxShadow: '0 2px 8px #b2f7ef', zIndex: 2 }}>
+                <span className="carousel-control-prev-icon" aria-hidden="true" style={{ filter: 'invert(40%) sepia(80%) saturate(400%) hue-rotate(90deg)' }}></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button className="carousel-control-next d-flex align-items-center justify-content-center" type="button" data-bs-target="#highSalaryCarousel" data-bs-slide="next" style={{ width: 48, height: 48, right: -24, background: '#e0ffe6', borderRadius: '50%', border: '2px solid #198754', boxShadow: '0 2px 8px #b2f7ef', zIndex: 2 }}>
+                <span className="carousel-control-next-icon" aria-hidden="true" style={{ filter: 'invert(40%) sepia(80%) saturate(400%) hue-rotate(90deg)' }}></span>
+                <span className="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+        </section>
+        <style>{`
+          .stat-card {
+            transition: transform 0.18s, box-shadow 0.18s;
+          }
+          .stat-card:hover {
+            transform: translateY(-6px) scale(1.04);
+            box-shadow: 0 8px 32px rgba(60,180,120,0.15);
+          }
+        `}</style>
+        {/* Banner background */}
+        <div
+          style={{
+            background: "linear-gradient(120deg, #e0ffe6 0%, #b2f7ef 100%)",
+            backgroundImage:
+              "url(https://www.transparenttextures.com/patterns/diagmonds-light.png)",
+            position: "relative",
+            borderRadius: "1.5rem",
+            marginBottom: "2rem",
+            boxShadow: "0 4px 24px rgba(60,180,120,0.08)",
+          }}
+          className="p-5 text-center shadow-sm"
+        >
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
+            alt="Job search"
+            style={{
+              width: 64,
+              height: 64,
+              marginBottom: 16,
+              opacity: 0.9,
+            }}
+          />
+          <h1
+            className="display-5 fw-bold"
+            style={{
+              color: "#198754",
+              textShadow: "0 2px 8px #b2f7ef",
+            }}
+          >
+            Find Your Dream Job
+          </h1>
+          <p className="text-muted fs-5 mb-4">
             Browse through thousands of job opportunities tailored to your
             skills and preferences.
           </p>
@@ -230,7 +381,13 @@ export default function Home() {
           {renderDropdown("Work Type", "locationType", locationTypes)}
           {/* Clear Button */}
           <button
-            className="btn btn-success border-4 mb-2"
+            className="btn btn-success border-4 mb-2 shadow-sm"
+            style={{
+              background:
+                "linear-gradient(90deg,#b2f7ef 0%,#e0ffe6 100%)",
+              color: "#198754",
+              fontWeight: 600,
+            }}
             onClick={() => setFilters({})}
           >
             Clear
@@ -242,11 +399,21 @@ export default function Home() {
         <Row>
           {paginatedJobs.map((job) => (
             <Col key={job.id} md={6} lg={4} className="mb-4">
-              <div className="shadow-sm rounded">
+              <div
+                className="shadow-sm rounded job-card-hover"
+                style={{
+                  transition: "transform 0.2s",
+                  background: "#f8fdfb",
+                }}
+              >
                 <JobCard
                   job={job}
                   onSave={toggleSaveJob}
                   isSaved={savedJobs.includes(job.id)}
+                  onApplyClick={() => {
+                    setSelectedJob(job);
+                    setIsApplyModalOpen(true);
+                  }}
                 />
               </div>
             </Col>
@@ -283,6 +450,130 @@ export default function Home() {
           </div>
         )}
       </Container>
+      {/* Modal Apply Now - chỉ render 1 lần ngoài cùng */}
+      {isApplyModalOpen && selectedJob && (
+        <>
+          <div
+            className="modal-backdrop show"
+            style={{ backgroundColor: "rgb(0, 0, 0)" }}
+            onClick={() => setIsApplyModalOpen(false)}
+          ></div>
+          <div
+            className="modal show d-block"
+            tabIndex="-1"
+            role="dialog"
+            onClick={() => setIsApplyModalOpen(false)}
+          >
+            <div
+              className="modal-dialog modal-dialog-centered"
+              style={{ maxWidth: "500px", margin: "auto" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="modal-content">
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    setIsApplyModalOpen(false);
+                    setFormData({ name: "", email: "", resume: null, coverLetter: "" });
+                    alert("Application submitted!");
+                  }}
+                >
+                  <div className="modal-header">
+                    <h5 className="modal-title">Apply for {selectedJob.title}</h5>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      onClick={() => setIsApplyModalOpen(false)}
+                    ></button>
+                  </div>
+                  <div className="modal-body">
+                    <div className="row row-cols-2 gy-2 mb-3">
+                      <div>
+                        <strong className="text-success">Company:</strong> {selectedJob.company}
+                      </div>
+                      {selectedJob.salary && selectedJob.salary.from && selectedJob.salary.to && (
+                        <div>
+                          <strong className="text-success">Salary:</strong> ${selectedJob.salary.from.toLocaleString()} - ${selectedJob.salary.to.toLocaleString()}
+                        </div>
+                      )}
+                      <div>
+                        <strong className="text-success">Location:</strong> {selectedJob.location || ""}
+                      </div>
+                      <div>
+                        <strong className="text-success">Job Type:</strong> {Array.isArray(selectedJob.jobType) ? selectedJob.jobType.join(", ") : ""}
+                      </div>
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="name" className="form-label">Full Name</label>
+                      <input
+                        type="text"
+                        id="name"
+                        className="form-control"
+                        placeholder="Enter your full name"
+                        required
+                        value={formData.name}
+                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                        style={{ boxShadow: "none", outline: "none", border: "1px solid #ced4da" }}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="email" className="form-label">Email</label>
+                      <input
+                        type="email"
+                        id="email"
+                        className="form-control"
+                        placeholder="Enter your email address"
+                        required
+                        value={formData.email}
+                        onChange={e => setFormData({ ...formData, email: e.target.value })}
+                        style={{ boxShadow: "none", outline: "none", border: "1px solid #ced4da" }}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="resume" className="form-label">Resume (Optional)</label>
+                      <input
+                        type="file"
+                        id="resume"
+                        className="form-control"
+                        accept=".pdf,.doc,.docx"
+                        onChange={e => {
+                          if (e.target.files?.[0]) setFormData({ ...formData, resume: e.target.files[0] });
+                        }}
+                        style={{ boxShadow: "none", outline: "none", border: "1px solid #ced4da" }}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="coverLetter" className="form-label">Cover Letter</label>
+                      <textarea
+                        id="coverLetter"
+                        className="form-control"
+                        rows="4"
+                        required
+                        value={formData.coverLetter}
+                        onChange={e => setFormData({ ...formData, coverLetter: e.target.value })}
+                        style={{ boxShadow: "none", outline: "none", border: "1px solid #ced4da" }}
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <button
+                      type="button"
+                      className="btn btn-outline-secondary"
+                      onClick={() => setIsApplyModalOpen(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn btn-success">
+                      Submit Application
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      {/* ...existing code... */}
     </>
   );
 }
