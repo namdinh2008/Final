@@ -113,11 +113,7 @@ export default function JobCard({ job, onSave, isSaved, onApplyClick }) {
         </Card.Body>
         <Card.Footer className="bg-body-secondary text-muted d-flex justify-content-between align-items-center small">
           <span>Posted: {new Date(job.postedDate).toLocaleDateString()}</span>
-          <Button
-            size="sm"
-            variant="success"
-            onClick={onApplyClick}
-          >
+          <Button size="sm" variant="success" onClick={onApplyClick}>
             Apply Now
           </Button>
         </Card.Footer>

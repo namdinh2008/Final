@@ -3,7 +3,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs } from "@/components/ui/tabs";
 import {
   mockJobs,
   jobCategories,
@@ -16,15 +16,7 @@ import {
 } from "@/lib/data";
 import JobCard from "@/components/job-card";
 import SearchBar from "@/components/search-bar";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Button, Form, Row, Col, Container } from "react-bootstrap";
-import { Dropdown, ButtonGroup } from "react-bootstrap";
 
 export default function Home() {
   const [searchParams] = useSearchParams();
@@ -264,7 +256,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {/* Job Advertisement Carousel - High Salary Jobs */}
+
         <section className="mb-5">
           <div className="bg-white rounded-4 shadow p-4">
             <h4 className="fw-bold mb-4" style={{ color: "#198754" }}>
@@ -394,7 +386,7 @@ export default function Home() {
             box-shadow: 0 8px 32px rgba(60,180,120,0.15);
           }
         `}</style>
-        {/* Banner background */}
+
         <div
           style={{
             background: "linear-gradient(120deg, #e0ffe6 0%, #b2f7ef 100%)",
@@ -467,7 +459,6 @@ export default function Home() {
         </Row>
 
         <div className="d-flex flex-wrap align-items-center gap-3 mb-4">
-          {/* Filter Dropdowns */}
           {renderDropdown("Job Category", "category", jobCategories)}
           {renderDropdown(
             "Experience Level",
@@ -476,7 +467,7 @@ export default function Home() {
           )}
           {renderDropdown("Job Type", "jobType", jobTypes)}
           {renderDropdown("Work Type", "locationType", locationTypes)}
-          {/* Clear Button */}
+
           <button
             className="btn btn-success border-4 mb-2 shadow-sm"
             style={{
@@ -721,7 +712,6 @@ export default function Home() {
           </div>
         </>
       )}
-      {/* ...existing code... */}
     </>
   );
 }
