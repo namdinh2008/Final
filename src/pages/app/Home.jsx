@@ -17,6 +17,7 @@ import {
 import JobCard from "@/components/job-card";
 import SearchBar from "@/components/search-bar";
 import { Button, Form, Row, Col, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [searchParams] = useSearchParams();
@@ -305,12 +306,12 @@ export default function Home() {
                           >
                             {job.description}
                           </div>
-                          <a
-                            href={`/jobs/${job.id}`}
+                          <Link
+                            to={`/jobs/${job.id}`}
                             className="btn btn-outline-success px-4 fw-semibold shadow-sm"
                           >
                             View Details
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
