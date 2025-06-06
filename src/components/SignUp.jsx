@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -153,12 +154,12 @@ export default function SignUp() {
           </div>
           <div className="text-center mt-2 small">
             Already have an account?{" "}
-            <a
-              href="/sign-in"
+            <Link
+              to={"/sign-in"}
               className="text-success fw-semibold text-decoration-underline"
             >
               Sign in now
-            </a>
+            </Link>
           </div>
         </div>
         {/* Right: Image */}
