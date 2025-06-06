@@ -1,13 +1,13 @@
-import './App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/app/Home';
-import ContactPage from './pages/app/contact/page';
-import FeedbackPage from './pages/app/feedback/page';
-import JobDetailPage from './pages/app/jobs/[id]/page';
-import SavedJobsPage from './pages/app/saved-jobs/page';
-import RootLayout from './pages/app/layout';
-import SignUp from './components/SignUp';
-import SignIn from './pages/app/sign-in';
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/app/Home";
+import ContactPage from "./pages/app/contact/page";
+import FeedbackPage from "./pages/app/feedback/page";
+import JobDetailPage from "./pages/app/jobs/[id]/page";
+import SavedJobsPage from "./pages/app/saved-jobs/page";
+import RootLayout from "./pages/app/layout";
+import SignUp from "./components/SignUp";
+import SignIn from "./pages/app/sign-in";
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
         </Routes>
       </RootLayout>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
